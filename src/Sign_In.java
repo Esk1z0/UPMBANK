@@ -56,9 +56,7 @@ public class Sign_In {
 
         System.out.print("\nSu cuenta ya está regitrada. Felicidades");
 
-        //Ahora se escoge el tipo de cuenta
 
-        System.out.println("\nIntroduzca que tipo de cuenta quiere\n");
 
     }
 
