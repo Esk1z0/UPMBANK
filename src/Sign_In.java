@@ -27,19 +27,22 @@ public class Sign_In {
         System.out.printf("\nSu fecha de nacimiento es: %02d/%02d/%02d", diaNac, mesNac, añoNac);
         //Aquí pedimos el dni y comprobamos que es verdadera
 
-        String letradni;
-        int tipoCuenta, pruebaDNI;
+        char letradni;
+        int tipoCuenta;
         long numDNI;
+        boolean pruebaDNI;
 
-        System.out.print("\nDeme los números de su DNI: ");
-        numDNI = entrada.nextLong();
-        if (numDNI > 99999999)
-            System.out.println("Error, numero muy largo");
-        else
-            System.out.println("Número aceptado");
-        System.out.print("\nAhora introduzca la letra de su DNI: ");
-        letradni = entrada.next();
-        pruebaDNI = (int)(numDNI % 23);
+        do {
+            System.out.print("\nDeme los números de su DNI: ");
+            numDNI = entrada.nextLong();
+            if (numDNI > 99999999)
+                System.out.println("Error, numero muy largo");
+            else
+                System.out.println("Número aceptado");
+            System.out.print("\nAhora introduzca la letra de su DNI: ");
+            letradni = entrada.next().charAt(0);
+            pruebaDNI = funciones.letraDNI(letradni, numDNI);
+        }while (pruebaDNI == false);
 
         //Ahora se valida el correo electronico
 
