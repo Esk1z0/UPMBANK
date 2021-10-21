@@ -1,8 +1,7 @@
 import java.util.Scanner;
 
 public class Sign_In {
-    public static void main(String[] args) {
-
+    public static void registro(){
         //Aqui pedimos el nombre al maromo
 
         String nombre, apellidos;
@@ -56,8 +55,7 @@ public class Sign_In {
 
         System.out.print("\nSu cuenta ya está regitrada. Felicidades");
 
-
-
     }
+
 
 }

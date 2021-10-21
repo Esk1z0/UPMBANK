@@ -9,7 +9,7 @@ public class Principal {
             int eleccion = entrada.nextInt();
             if (eleccion == 1) {
                 //funcion darse de alta
-                Sign_In.main([1]);
+                Sign_In.registro();
             } else if (eleccion == 2) {
                 //funcion crear cuenta
             } else if (eleccion == 3) {
