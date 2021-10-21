@@ -9,20 +9,27 @@ public class Principal {
             int eleccion = entrada.nextInt();
             if (eleccion == 1) {
                 //funcion darse de alta
-                Sign_In.registro();
-            } else if (eleccion == 2) {
+                funciones.registro();
+            }
+            else if (eleccion == 2) {
                 //funcion crear cuenta
-            } else if (eleccion == 3) {
+            }
+            else if (eleccion == 3) {
                 //funcion deposito
-            } else if (eleccion == 4) {
+            }
+            else if (eleccion == 4) {
                 //funcion extraccion
-            } else if (eleccion == 5) {
+            }
+            else if (eleccion == 5) {
                 //funcion transferencia
-            } else if (eleccion == 6) {
+            }
+            else if (eleccion == 6) {
                 //funcion hipotecarse
-            } else if (eleccion == 7) {
+            }
+            else if (eleccion == 7) {
                 //funcion mi cuenta
-            } else {
+            }
+            else {
                 System.out.println("Opción Inválida");
             }
         }
