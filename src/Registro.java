@@ -1,7 +1,6 @@
 import java.util.Scanner;
 
-public class funciones {
-    String NC_1, NC_2;
+public class Registro {
 
     public static boolean letraDNI(char a, long b){
         String cadena = "TRWAGMYFPDXBNJZSQVHLCKE";
@@ -54,7 +53,7 @@ public class funciones {
                 System.out.println("Número aceptado");
             System.out.print("\nAhora introduzca la letra de su DNI: ");
             letradni = entrada.next().charAt(0);
-            pruebaDNI = funciones.letraDNI(letradni, numDNI);
+            pruebaDNI = Registro.letraDNI(letradni, numDNI);
         }while (pruebaDNI == false);
 
         //Ahora se valida el correo electronico
@@ -71,45 +70,7 @@ public class funciones {
 
 
     }
-//esto esta en proceso juanes
-    public static void numCuenta(){
-        long CE = 9010;
-        long CS = 0201;
-        long NC = 0;
-        double num = 0;
-        for(int i = 0; i<=11; ++i){
-            System.out.println(Math.random());
-        }
-        num = Math.random();
-        System.out.println(num);
-        NC = (long)(num*10);
-        System.out.println(NC);
-
-
-
-    }
-
-
-
-
-    public static void cuenta(){
-        String cliente;
-        int tipoCuenta;
-        String numeroBanco;
-
-        Scanner entrada = new Scanner(System.in);
-        System.out.print("Ha seleccionado crear una cuenta");
-        System.out.print("\nDeme un nombre: ");
-        cliente = entrada.nextLine();
-        System.out.print("\nAhora elija un tipo de cuenta\n(1)Corriente (2)Ahorro (3)Remunerada");
-        tipoCuenta = entrada.nextInt();
-        System.out.println("\nSu número de cuenta es:\n");
-
-
-
-    }
     public static void main(String[] args) {
-        numCuenta();
     }
 
 
