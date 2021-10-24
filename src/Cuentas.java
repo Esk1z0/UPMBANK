@@ -91,7 +91,7 @@ public class Cuentas {
 
 
 
-    public static void cuenta() {
+    public static String cuenta() {
         String cliente;
         int tipoCuenta;
         String numeroBanco;
@@ -110,6 +110,7 @@ public class Cuentas {
         System.out.println("Se ha creado su cuenta, contiene " + money + "\u20AC"+ " ");
         System.out.println("Aceptar(1)");
         System.out.println(" ");
+        return Iban;
     }
 
 

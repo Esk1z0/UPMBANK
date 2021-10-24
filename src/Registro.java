@@ -14,7 +14,7 @@ public class Registro {
     }
 
 
-    public static void registro(){
+    public static String registro(){
         //Aqui pedimos el nombre al maromo
 
         String nombre, apellidos;
@@ -66,9 +66,9 @@ public class Registro {
         }while (!correo.contains("@alumnos.upm.es") && !correo.contains("@upm.es"));
 
 
-        System.out.print("\nSu cuenta ya está regitrada. Felicidades");
+        System.out.print("\nSu cuenta ya está regitrada. Felicidades\n");
 
-
+        return nombre + " " + apellidos;
     }
     public static void main(String[] args) {
     }
