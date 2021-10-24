@@ -14,7 +14,7 @@ public class Registro {
     }
 
 
-    public static String registro(){
+    public static void registro(){
         //Aqui pedimos el nombre al maromo
 
         String nombre, apellidos;
@@ -23,9 +23,9 @@ public class Registro {
         System.out.println("Para crear una cuenta en UPMBank se le va a pedir una serie de datos");
         System.out.print("Nombre: ");
         nombre = entrada.nextLine();
+
         System.out.print("\nApellidos: ");
         apellidos = entrada.nextLine();
-
         //Aquí pedimos la fecha de nacimiento
 
         int diaNac, mesNac, añoNac;
@@ -59,7 +59,6 @@ public class Registro {
         //Ahora se valida el correo electronico
 
         String correo = "a";
-
         do{
             System.out.println("\nIntroduzca un correo válido de la UPM:");
             correo = entrada.nextLine();
@@ -68,7 +67,6 @@ public class Registro {
 
         System.out.print("\nSu cuenta ya está regitrada. Felicidades\n");
 
-        return nombre + " " + apellidos;
     }
     public static void main(String[] args) {
     }
