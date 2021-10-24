@@ -3,17 +3,22 @@ import java.util.Scanner;
 public class Principal {
 
     public static void menu(){
-        int balance = 0, ultimoDeposito = 0, ultimaExtraccion = 0;
-        String nombre, IBAN = "0", correo, fechaNacimiento;
+        int balance = 0, ultimoDeposito = 0, ultimaExtraccion = 0, eleccion = 0;
+        String nombre, IBAN = "0", correo, fechaNacimiento,DNI, DNIletra;
         Scanner entrada = new Scanner(System.in);
-        int eleccion = 0;
+
         System.out.println("Bienvenido, ¿qué desea?");
         do{
-            System.out.print(" Darse de Alta(1)  Crear una cuenta(2)  Depósito(3)  Extración(4)  \n Transferencia(5)  Hipotecarse(6)       Mi Cuenta(7) Salir(8)\n Salir(0)\n:");
+            System.out.print(" Darse de Alta(1)  Crear una cuenta(2)  Depósito(3)  Extración(4)  \n Transferencia(5)  Hipotecarse(6)       Mi Cuenta(7) Salir(0)\n:");
             eleccion = entrada.nextInt();
             if (eleccion == 1) {
                 //funcion darse de alta
-                Registro.registro();
+                nombre = Registro.nombre();
+                fechaNacimiento = Registro.fechaNacimiento();
+                DNI = Registro.DNInum();
+                DNIletra = Registro.letraDNI(Long.parseLong(DNI));
+                DNI = DNI + DNIletra;
+                correo = Registro.correo();
             }
             else if (eleccion == 2) {
                 //funcion crear cuenta
@@ -37,9 +42,6 @@ public class Principal {
             }
             else if (eleccion == 7) {
                 //funcion mi cuenta
-            }
-            else if (eleccion == 8){
-                break;
             }
             else if (eleccion == 0){
                 System.out.println("Vuelva pronto");
