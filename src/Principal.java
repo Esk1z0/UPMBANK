@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class Principal {
 
     public static void menu(){
-        int balance = 0, ultimoDeposito = 0;
+        int balance = 0, ultimoDeposito = 0, ultimaExtraccion = 0;
         String nombre, IBAN = "0", correo, fechaNacimiento;
         Scanner entrada = new Scanner(System.in);
         int eleccion = 0;
@@ -26,6 +26,8 @@ public class Principal {
             }
             else if (eleccion == 4) {
                 //funcion extraccion
+                ultimaExtraccion = Movimientos.retirada(IBAN);
+                balance = balance - ultimaExtraccion;
             }
             else if (eleccion == 5) {
                 //funcion transferencia
