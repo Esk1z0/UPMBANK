@@ -3,7 +3,9 @@ import java.util.Scanner;
 public class Principal {
 
     public static void menu(){
-        int balance = 0, ultimoDeposito = 0, ultimaExtraccion = 0, eleccion = 0, ultimaTransferencia = 0;
+        long balance = 0, ultimoDeposito = 0, ultimaExtraccion = 0, eleccion = 0, ultimaTransferencia = 0, ultimoPréstamo = 0, tiempoPrestamo = 0;
+        long capitalPrestamo = 0;
+        double cuota = 0, interes = 0.03;
         String nombre, IBAN = "0", correo, fechaNacimiento,DNI, DNIletra,ibanEmisor, ibanreceptor;
         Scanner entrada = new Scanner(System.in);
 
@@ -44,6 +46,10 @@ public class Principal {
             }
             else if (eleccion == 6) {
                 //funcion hipotecarse
+                capitalPrestamo = Prestamo.hipoteca();
+                tiempoPrestamo = Prestamo.meses();
+                cuota = Prestamo.cuota(tiempoPrestamo, capitalPrestamo, interes);
+
             }
             else if (eleccion == 7) {
                 //funcion mi cuenta
