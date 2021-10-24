@@ -21,7 +21,7 @@ public class Prestamo {
         double interesMes = interes/12;
         System.out.println("Con un capital de " + capital + "\u20AC, a un interés del "+ interes*100 +"%, a " + meses/12 + " años");
 
-        cuota = capital * (interes/12);
+        cuota = capital * interesMes;
         cuota = cuota * Math.pow((1 + interesMes), meses);
         cuota = cuota / (Math.pow((1 + interesMes), meses) - 1);
         cuota = (double)Math.round(cuota*100)/100;
@@ -72,10 +72,8 @@ public class Prestamo {
                 capitalVivoAnterior = capitalVivo;
             }
         }
+        System.out.print("\n");
     }
 
-    public static void main(String[] args) {
-        double a = cuota(12, 100000, 0.03);
-        tablaAmortización(100000, 12, a, 0.03);
-    }
+
 }

@@ -3,10 +3,11 @@ import java.util.Scanner;
 public class Principal {
 
     public static void menu(){
-        long balance = 0, ultimoDeposito = 0, ultimaExtraccion = 0, eleccion = 0, ultimaTransferencia = 0, ultimoPréstamo = 0, tiempoPrestamo = 0;
-        long capitalPrestamo = 0;
+        long eleccion = 0;
+        long balance = 0, ultimoDeposito = 0, ultimaExtraccion = 0, ultimaTransferencia = 0;
+        long capitalPrestamo = 0, tiempoPrestamo = 0;
         double cuota = 0, interes = 0.03;
-        String nombre, IBAN = "0", correo, fechaNacimiento,DNI, DNIletra,ibanEmisor, ibanreceptor;
+        String nombre = "0", IBAN = "0", correo = "0", fechaNacimiento = "0",DNI = "0", DNIletra,ibanEmisor = "0", ibanreceptor = "0";
         Scanner entrada = new Scanner(System.in);
 
         System.out.println("Bienvenido, ¿qué desea?");
@@ -47,12 +48,14 @@ public class Principal {
             else if (eleccion == 6) {
                 //funcion hipotecarse
                 capitalPrestamo = Prestamo.hipoteca();
+                balance = balance + capitalPrestamo;
                 tiempoPrestamo = Prestamo.meses();
                 cuota = Prestamo.cuota(tiempoPrestamo, capitalPrestamo, interes);
-
+                Prestamo.tablaAmortización(capitalPrestamo, tiempoPrestamo, cuota, interes);
             }
             else if (eleccion == 7) {
                 //funcion mi cuenta
+                Datos.Micuenta(balance, ultimoDeposito, ultimaExtraccion, ultimaTransferencia, ibanEmisor, ibanreceptor, capitalPrestamo, tiempoPrestamo, cuota, interes, nombre, IBAN, correo, fechaNacimiento, DNI);
             }
             else if (eleccion == 0){
                 System.out.println("Vuelva pronto");
