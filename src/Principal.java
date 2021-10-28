@@ -30,32 +30,32 @@ public class Principal {
             }
             else if (eleccion == 3) {
                 //funcion deposito
-                ultimoDeposito = Movimientos.deposito(IBAN);
+                ultimoDeposito = deposito(IBAN);
                 balance = balance + ultimoDeposito;
             }
             else if (eleccion == 4) {
                 //funcion extraccion
-                ultimaExtraccion = Movimientos.retirada(IBAN);
+                ultimaExtraccion = retirada(IBAN);
                 balance = balance - ultimaExtraccion;
             }
             else if (eleccion == 5) {
                 //funcion transferencia
-                ibanEmisor = Movimientos.ibanEmisor();
-                ibanreceptor = Movimientos.ibanReceptor();
-                ultimaTransferencia = Movimientos.transferencia(ibanEmisor, ibanreceptor);
+                ibanEmisor = ibanEmisor();
+                ibanreceptor = ibanReceptor();
+                ultimaTransferencia = transferencia(ibanEmisor, ibanreceptor);
                 balance = balance - ultimaTransferencia;
             }
             else if (eleccion == 6) {
                 //funcion hipotecarse
-                capitalPrestamo = Prestamo.hipoteca();
+                capitalPrestamo = hipoteca();
                 balance = balance + capitalPrestamo;
-                tiempoPrestamo = Prestamo.meses();
-                cuota = Prestamo.cuota(tiempoPrestamo, capitalPrestamo, interes);
-                Prestamo.tablaAmortización(capitalPrestamo, tiempoPrestamo, cuota, interes);
+                tiempoPrestamo = meses();
+                cuota = cuota(tiempoPrestamo, capitalPrestamo, interes);
+                tablaAmortización(capitalPrestamo, tiempoPrestamo, cuota, interes);
             }
             else if (eleccion == 7) {
                 //funcion mi cuenta
-                Datos.Micuenta(balance, ultimoDeposito, ultimaExtraccion, ultimaTransferencia, ibanEmisor, ibanreceptor, capitalPrestamo, tiempoPrestamo, cuota, interes, nombre, IBAN, correo, fechaNacimiento, DNI);
+                Micuenta(balance, ultimoDeposito, ultimaExtraccion, ultimaTransferencia, ibanEmisor, ibanreceptor, capitalPrestamo, tiempoPrestamo, cuota, interes, nombre, IBAN, correo, fechaNacimiento, DNI);
             }
             else if (eleccion == 0){
                 System.out.println("Vuelva pronto");
@@ -264,5 +264,229 @@ public class Principal {
         System.out.println("Aceptar(1)");
         System.out.println(" ");
         return Iban;
+    }
+    public static int deposito(String Iban){
+        int deposito = 0;
+        Scanner emtrada = new Scanner(System.in);
+        if (Iban != "0") {
+            System.out.println(Iban);
+            System.out.println("Introduzca cuánto quiere ingresaren la cuenta " + Iban + " \n :");
+            deposito = emtrada.nextInt();
+            System.out.println("Se ha ingresado " + deposito + "\u20AC");
+        }
+        else if (Iban == "0"){
+            System.out.println("Desgraciadamente no tiene una cuenta a la que ingresar dinero");
+            deposito = 0;
+        }
+        return deposito;
+    }
+    public static int retirada(String Iban){
+        int retirada = 0;
+        Scanner entrada = new Scanner(System.in);
+        if (Iban != "0") {
+            System.out.println(Iban);
+            System.out.println("Intreoduzca cuanto dinero quiere retirar de la cuenta " + Iban + " \n :");
+            retirada = entrada.nextInt();
+            System.out.println("Se ha retirado " + retirada + "\u20AC");
+        }
+        else if(Iban == "0") {
+            System.out.println("Desgraciadamente no tiene una cuenta de la que extraer dinero.");
+            retirada = 0;
+        }
+        return retirada;
+    }
+
+    //Hacer la transeferencia
+    //Comprobar que el iban emisor está bien
+
+    public static String ibanEmisor(){
+        String ibanEmisor;
+        Scanner entrada = new Scanner(System.in);
+
+        System.out.println("Introduzca el número de cuenta emisor: ");
+        ibanEmisor = entrada.nextLine();
+
+        return ibanEmisor;
+    }
+    public static String ibanReceptor(){
+        String ibanReceptor;
+
+        Scanner entrada = new Scanner(System.in);
+
+        System.out.println("Introduzca el número de cuenta receptor: ");
+        ibanReceptor = entrada.nextLine();
+
+        return ibanReceptor;
+    }
+
+    public static boolean numTest(String iban){
+        String comprobar = "0";
+        long test;
+        boolean prueba;
+
+        for (int i = 0; i<=7; ++i){
+            comprobar = comprobar + iban.charAt(i);
+        }
+        test = Long.parseLong(comprobar);
+        if (test == 90100201){
+            prueba = true;
+        }
+        else{
+            prueba = false;
+        }
+        return prueba;
+    }
+    public static int transferencia(String ibanEmisor, String ibanReceptor){
+        int dinero = 0;
+        Scanner entrada = new Scanner(System.in);
+        boolean prueba1, prueba2;
+        prueba1 = numTest(ibanEmisor);
+        prueba2 = numTest(ibanReceptor);
+        if (prueba1 && prueba2) {
+            System.out.println("Introduzca la cantidad que quiere transeferir: ");
+            dinero = entrada.nextInt();
+            System.out.println("Transferencia Realizada");
+        }
+        else{
+            dinero = 0;
+        }
+        return dinero;
+    }
+    public static long hipoteca(){
+        long capital;
+        Scanner entrada = new Scanner(System.in);
+        System.out.println("Introduzca el capital que desearía: ");
+        capital = entrada.nextLong();
+        return capital;
+    }
+    public static long meses(){
+        long meses;
+        Scanner entrada = new Scanner(System.in);
+        System.out.println("¿A cuantos años quiere financiar el préstamo?: ");
+        meses = entrada.nextLong();
+        meses = meses*12;
+        return meses;
+    }
+    public static double cuota(long meses, long capital, double interes){
+        double cuota;
+        double interesMes = interes/12;
+        System.out.println("Con un capital de " + capital + "\u20AC, a un interés del "+ interes*100 +"%, a " + meses/12 + " años");
+
+        cuota = capital * interesMes;
+        cuota = cuota * Math.pow((1 + interesMes), meses);
+        cuota = cuota / (Math.pow((1 + interesMes), meses) - 1);
+        cuota = (double)Math.round(cuota*100)/100;
+        System.out.println("Su cuota será de " + cuota);
+        return cuota;
+    }
+
+    public static void tablaAmortización(long capital,long meses,double cuota,double interes){
+        System.out.println("\t\t\tPAGO MENSUAL\tINTERESES\t\tAMORTIZADO\t\tCAPITAL VIVO\n");
+        double Capital = (double) capital;
+        double interesMensual = interes/12;
+
+        double interesAbonadoAnterior = 0;
+        double interesAbonado = 0;
+
+        double capitalAmortizadoAnterior = 0;
+        double capitalAmortizado = 0;
+
+        double capitalVivoAnterior = 0;
+        double capitalVivo = 0;
+        for(int i = 0; i <= meses; ++i){
+
+
+            if (i == 0){
+                System.out.print(i);
+                System.out.print("\t\t\t\t   0,00");
+                System.out.print("\t\t\t  0,00");
+                System.out.print("\t\t\t  0,00");
+                System.out.printf("\t\t%012.2f", Capital);
+
+                interesAbonadoAnterior = 0;
+                capitalAmortizadoAnterior = 0;
+                capitalVivoAnterior = Capital;
+            }
+            else{
+                interesAbonado = (capitalVivoAnterior*interesMensual);
+                capitalAmortizado = (cuota-interesAbonado);
+                capitalVivo = capitalVivoAnterior - capitalAmortizado;
+
+                System.out.print("\n" + i);
+                System.out.printf("\t\t\t%011.2f", cuota);
+                System.out.printf("\t\t%010.2f", interesAbonado);
+                System.out.printf("\t\t%010.2f", capitalAmortizado);
+                System.out.printf("\t\t%012.2f", capitalVivo);
+
+                interesAbonadoAnterior = interesAbonado;
+                capitalAmortizadoAnterior = capitalAmortizado;
+                capitalVivoAnterior = capitalVivo;
+            }
+        }
+        System.out.print("\n");
+    }
+    public static void Micuenta(long balance, long ultimoDeposito, long ultimaExtraccion, long ultimaTransferencia, String ibanEmisor, String ibanReceptor, long capitalPrestamo, long tiempoPrestamo,
+                                double cuota, double interes, String nombre, String IBAN, String correo, String fechaNacimiento, String DNI){
+        System.out.println("Los datos de su cuenta ahora mismo:");
+        balance(balance);
+        if (ultimoDeposito != 0){
+            ultimoDeposito(ultimoDeposito);
+        }
+        if (ultimaExtraccion != 0){
+            ultimaExtraccion(ultimaExtraccion);
+        }
+        if (ultimaTransferencia != 0){
+            ultimaTransferencia(ultimaTransferencia, ibanEmisor, ibanReceptor);
+        }
+        if (capitalPrestamo != 0){
+            prestamo(capitalPrestamo, tiempoPrestamo, cuota, interes);
+        }
+        if (nombre != "0" || IBAN != "0"){
+            datosPersonales(nombre, DNI, fechaNacimiento, correo, IBAN);
+        }
+        System.out.println("\n");
+    }
+    private static void balance(long balance){
+        System.out.println("Dinero actual: " + balance + "\u20AC");
+    }
+    private static void ultimoDeposito(long ultimoDeposito){
+        System.out.println("Su último deposito fue de " + ultimoDeposito + "\u20AC");
+    }
+    private static void ultimaExtraccion(long ultimaExtraccion){
+        System.out.println("Su última extracción fue de " + ultimaExtraccion + "\u20AC");
+    }
+    private static void ultimaTransferencia(long ultimaTransferencia, String ibanEmisor, String ibanReceptor){
+        System.out.println("Su última transferencia fue de " + ultimaTransferencia + "\u20AC");
+        System.out.println("De la cuenta " + ibanEmisor + " a la cuenta " + ibanReceptor);
+    }
+    private static void prestamo(long capitalPrestado, long tiempoPrestamo, double cuota, double interes){
+        System.out.println("Ha adquirido un prestamo de " + capitalPrestado + "\u20AC");
+        System.out.println("Durante " + tiempoPrestamo + " años");
+        System.out.println("A un interés del " + interes*100 + "%");
+        System.out.println("Con una cuota mensual de " + cuota + "\u20AC");
+    }
+    private static void datosPersonales(String nombre, String DNI, String fechaNacimiento, String correo, String IBAN){
+        int dia, mes, año;
+        char Dia, Mes, Año;
+        Dia = fechaNacimiento.charAt(0);
+        dia = Character.getNumericValue(Dia);
+        Dia = fechaNacimiento.charAt(1);
+        dia = (dia*10) + Character.getNumericValue(Dia);
+
+        Mes = fechaNacimiento.charAt(2);
+        mes = Character.getNumericValue(Mes);
+        Mes = fechaNacimiento.charAt(3);
+        mes = (mes*10) + Character.getNumericValue(Mes);
+
+        Año = fechaNacimiento.charAt(4);
+        año = Character.getNumericValue(Año);
+        Año = fechaNacimiento.charAt(5);
+        año = (año*10) + Character.getNumericValue(Año);
+
+        System.out.println("nombre: " + nombre);
+        System.out.println("DNI: " + DNI);
+        System.out.println("Fecha de nacimiento: " + dia + "/" + mes + "/" + año);
+        System.out.println("Correo: " + correo);
+        System.out.println("Número de cuenta: " + IBAN);
     }
 }
