@@ -1,7 +1,10 @@
 import java.util.Scanner;
 
 public class Principal {
-
+    public static void main(String[] args) {
+        menu();
+    }
+    //Aquí está el menú y se ejecutan todas las funciones
     public static void menu(){
         long eleccion = 0;
         long balance = 0, ultimoDeposito = 0, ultimaExtraccion = 0, ultimaTransferencia = 0;
@@ -47,11 +50,16 @@ public class Principal {
             }
             else if (eleccion == 6) {
                 //funcion hipotecarse
-                capitalPrestamo = hipoteca();
-                balance = balance + capitalPrestamo;
-                tiempoPrestamo = meses();
-                cuota = cuota(tiempoPrestamo, capitalPrestamo, interes);
-                tablaAmortización(capitalPrestamo, tiempoPrestamo, cuota, interes);
+                if (IBAN == "0"){
+                    System.out.println("No tiene cuenta, lo sentimos mucho");
+                }
+                else if (IBAN != "0") {
+                    capitalPrestamo = hipoteca();
+                    balance = balance + capitalPrestamo;
+                    tiempoPrestamo = meses();
+                    cuota = cuota(tiempoPrestamo, capitalPrestamo, interes);
+                    tablaAmortización(capitalPrestamo, tiempoPrestamo, cuota, interes);
+                }
             }
             else if (eleccion == 7) {
                 //funcion mi cuenta
@@ -66,11 +74,7 @@ public class Principal {
         }while(eleccion != 0);
     }
 
-    public static void main(String[] args) {
-        menu();
-    }
-//Aqui pedimos el nombre al maromo
-
+    //Aqui pedimos el nombre al maromo
     public static String nombre(){
         String nombre, apellidos;
         Scanner entrada = new Scanner(System.in);
@@ -83,9 +87,7 @@ public class Principal {
 
         return nombre + " " + apellidos;
     }
-
     //Aquí pedimos la fecha de nacimiento
-
     public static String fechaNacimiento(){
         int diaNac, mesNac, añoNac;
         Scanner entrada = new Scanner(System.in);
@@ -100,9 +102,7 @@ public class Principal {
 
         return String.valueOf(diaNac + mesNac + añoNac);
     }
-
     //Aquí pedimos el dni
-
     public static String DNInum(){
         char letradni;
         String DNI;
@@ -118,9 +118,7 @@ public class Principal {
 
         return DNI;
     }
-
     //Aquí comprobamos la letra del DNI
-
     public static String letraDNI(long DNInum){
         char letradni;
         String cadena = "TRWAGMYFPDXBNJZSQVHLCKE";
@@ -139,9 +137,7 @@ public class Principal {
 
         return Character.toString(letradni);
     }
-
     //Aquí le pedimos el correo
-
     public static String correo(){
         //Ahora se valida el correo electronico
         Scanner entrada = new Scanner(System.in);
@@ -154,6 +150,30 @@ public class Principal {
 
         return correo;
     }
+    //Este se ejecuta cuando seleccionan crear una nueva cuenta
+
+    public static String cuenta() {
+        String cliente;
+        int tipoCuenta;
+        String numeroBanco;
+        String Iban = "0";
+        long money = 0;
+
+        Scanner entrada = new Scanner(System.in);
+        System.out.print("Ha seleccionado crear una cuenta");
+        System.out.print("\nDeme un nombre: ");
+        cliente = entrada.nextLine();
+        System.out.print("\nAhora elija un tipo de cuenta\n(1)Corriente (2)Ahorro (3)Remunerada");
+        tipoCuenta = entrada.nextInt();
+        System.out.println("\nSu número de cuenta es:\n");
+        Iban = IBAN();
+        System.out.println(Iban);
+        System.out.println("Se ha creado su cuenta, contiene " + money + "\u20AC"+ " ");
+        System.out.println("Aceptar(1)");
+        System.out.println(" ");
+        return Iban;
+    }
+    //Aquí se crea el Número de cuenta
     public static String IBAN(){
         String CE = "9010";
         String CS = "0201";
@@ -188,8 +208,8 @@ public class Principal {
         return Iban;
 
     }
-
-
+    //Aquí se crea el número seguridad del numero de cuenta
+    //El primer número
     public static int c1(String CE, String CS){
         int num, a1, a2, a3, a4, b1, b2, b3, b4, r, c;
         int c1 = 0;
@@ -220,7 +240,7 @@ public class Principal {
         }
         return c1;
     }
-
+    //El segundo número
     public static int c2(int d1, int d2, int d3, int d4, int d5, int d6, int d7, int d8, int d9, int d10){
         int num, r, c;
         int c2 = 0;
@@ -240,31 +260,7 @@ public class Principal {
         return c2;
     }
 
-
-
-
-
-    public static String cuenta() {
-        String cliente;
-        int tipoCuenta;
-        String numeroBanco;
-        String Iban = "0";
-        long money = 0;
-
-        Scanner entrada = new Scanner(System.in);
-        System.out.print("Ha seleccionado crear una cuenta");
-        System.out.print("\nDeme un nombre: ");
-        cliente = entrada.nextLine();
-        System.out.print("\nAhora elija un tipo de cuenta\n(1)Corriente (2)Ahorro (3)Remunerada");
-        tipoCuenta = entrada.nextInt();
-        System.out.println("\nSu número de cuenta es:\n");
-        Iban = IBAN();
-        System.out.println(Iban);
-        System.out.println("Se ha creado su cuenta, contiene " + money + "\u20AC"+ " ");
-        System.out.println("Aceptar(1)");
-        System.out.println(" ");
-        return Iban;
-    }
+    //Esto se ejecuta cuando selecciona hacer un deposito
     public static int deposito(String Iban){
         int deposito = 0;
         Scanner emtrada = new Scanner(System.in);
@@ -280,6 +276,8 @@ public class Principal {
         }
         return deposito;
     }
+
+    //Esto se ejcuta cuando eliges hacer una retirada
     public static int retirada(String Iban){
         int retirada = 0;
         Scanner entrada = new Scanner(System.in);
@@ -297,8 +295,7 @@ public class Principal {
     }
 
     //Hacer la transeferencia
-    //Comprobar que el iban emisor está bien
-
+    //Pedir el numero emisor
     public static String ibanEmisor(){
         String ibanEmisor;
         Scanner entrada = new Scanner(System.in);
@@ -308,6 +305,7 @@ public class Principal {
 
         return ibanEmisor;
     }
+    //Pedir el numero receptor
     public static String ibanReceptor(){
         String ibanReceptor;
 
@@ -318,7 +316,7 @@ public class Principal {
 
         return ibanReceptor;
     }
-
+    //Esto comprueba que los numeros de cuenta son del UPMBank
     public static boolean numTest(String iban){
         String comprobar = "0";
         long test;
@@ -336,6 +334,7 @@ public class Principal {
         }
         return prueba;
     }
+    //Aquí se realiza la transferencia
     public static int transferencia(String ibanEmisor, String ibanReceptor){
         int dinero = 0;
         Scanner entrada = new Scanner(System.in);
@@ -352,6 +351,8 @@ public class Principal {
         }
         return dinero;
     }
+
+    //Aqui se hace el prestamo
     public static long hipoteca(){
         long capital;
         Scanner entrada = new Scanner(System.in);
@@ -359,6 +360,7 @@ public class Principal {
         capital = entrada.nextLong();
         return capital;
     }
+    //Aquí se calculan los meses
     public static long meses(){
         long meses;
         Scanner entrada = new Scanner(System.in);
@@ -367,6 +369,7 @@ public class Principal {
         meses = meses*12;
         return meses;
     }
+    //Aquí se calcula la cuota
     public static double cuota(long meses, long capital, double interes){
         double cuota;
         double interesMes = interes/12;
@@ -379,7 +382,7 @@ public class Principal {
         System.out.println("Su cuota será de " + cuota);
         return cuota;
     }
-
+    //Aquí se presenta los datos del préstamo
     public static void tablaAmortización(long capital,long meses,double cuota,double interes){
         System.out.println("\t\t\tPAGO MENSUAL\tINTERESES\t\tAMORTIZADO\t\tCAPITAL VIVO\n");
         double Capital = (double) capital;
@@ -425,6 +428,9 @@ public class Principal {
         }
         System.out.print("\n");
     }
+
+    //Aquí te muestra los datos de tu cuenta
+    //El resto de funciones muestran los datos si hay datos, en caso contrario solo muestra los datos que están introducidos
     public static void Micuenta(long balance, long ultimoDeposito, long ultimaExtraccion, long ultimaTransferencia, String ibanEmisor, String ibanReceptor, long capitalPrestamo, long tiempoPrestamo,
                                 double cuota, double interes, String nombre, String IBAN, String correo, String fechaNacimiento, String DNI){
         System.out.println("Los datos de su cuenta ahora mismo:");
@@ -446,26 +452,26 @@ public class Principal {
         }
         System.out.println("\n");
     }
-    private static void balance(long balance){
+    public static void balance(long balance){
         System.out.println("Dinero actual: " + balance + "\u20AC");
     }
-    private static void ultimoDeposito(long ultimoDeposito){
+    public static void ultimoDeposito(long ultimoDeposito){
         System.out.println("Su último deposito fue de " + ultimoDeposito + "\u20AC");
     }
-    private static void ultimaExtraccion(long ultimaExtraccion){
+    public static void ultimaExtraccion(long ultimaExtraccion){
         System.out.println("Su última extracción fue de " + ultimaExtraccion + "\u20AC");
     }
-    private static void ultimaTransferencia(long ultimaTransferencia, String ibanEmisor, String ibanReceptor){
+    public static void ultimaTransferencia(long ultimaTransferencia, String ibanEmisor, String ibanReceptor){
         System.out.println("Su última transferencia fue de " + ultimaTransferencia + "\u20AC");
         System.out.println("De la cuenta " + ibanEmisor + " a la cuenta " + ibanReceptor);
     }
-    private static void prestamo(long capitalPrestado, long tiempoPrestamo, double cuota, double interes){
+    public static void prestamo(long capitalPrestado, long tiempoPrestamo, double cuota, double interes){
         System.out.println("Ha adquirido un prestamo de " + capitalPrestado + "\u20AC");
         System.out.println("Durante " + tiempoPrestamo + " años");
         System.out.println("A un interés del " + interes*100 + "%");
         System.out.println("Con una cuota mensual de " + cuota + "\u20AC");
     }
-    private static void datosPersonales(String nombre, String DNI, String fechaNacimiento, String correo, String IBAN){
+    public static void datosPersonales(String nombre, String DNI, String fechaNacimiento, String correo, String IBAN){
         int dia, mes, año;
         char Dia, Mes, Año;
         Dia = fechaNacimiento.charAt(0);
