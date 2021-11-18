@@ -43,9 +43,9 @@ public class Principal {
             }
             else if (eleccion == 5) {
                 //funcion transferencia
-                ibanEmisor = ibanEmisor();
-                ibanreceptor = ibanReceptor();
-                ultimaTransferencia = transferencia(ibanEmisor, ibanreceptor);
+                ibanEmisor = Transferencia.ibanEmisor();
+                ibanreceptor = Transferencia.ibanReceptor();
+                ultimaTransferencia = Transferencia.transferencia(ibanEmisor, ibanreceptor);
                 balance = balance - ultimaTransferencia;
             }
             else if (eleccion == 6) {
@@ -63,7 +63,7 @@ public class Principal {
             }
             else if (eleccion == 7) {
                 //funcion mi cuenta
-                Micuenta(balance, ultimoDeposito, ultimaExtraccion, ultimaTransferencia, ibanEmisor, ibanreceptor, capitalPrestamo, tiempoPrestamo, cuota, interes, nombre, IBAN, correo, fechaNacimiento, DNI);
+                Cuenta.Micuenta(balance, ultimoDeposito, ultimaExtraccion, ultimaTransferencia, ibanEmisor, ibanreceptor, capitalPrestamo, tiempoPrestamo, cuota, interes, nombre, IBAN, correo, fechaNacimiento, DNI);
             }
             else if (eleccion == 0){
                 System.out.println("Vuelva pronto");
@@ -294,63 +294,6 @@ public class Principal {
         return retirada;
     }
 
-    //Hacer la transeferencia
-    //Pedir el numero emisor
-    public static String ibanEmisor(){
-        String ibanEmisor;
-        Scanner entrada = new Scanner(System.in);
-
-        System.out.println("Introduzca el número de cuenta emisor: ");
-        ibanEmisor = entrada.nextLine();
-
-        return ibanEmisor;
-    }
-    //Pedir el numero receptor
-    public static String ibanReceptor(){
-        String ibanReceptor;
-
-        Scanner entrada = new Scanner(System.in);
-
-        System.out.println("Introduzca el número de cuenta receptor: ");
-        ibanReceptor = entrada.nextLine();
-
-        return ibanReceptor;
-    }
-    //Esto comprueba que los numeros de cuenta son del UPMBank
-    public static boolean numTest(String iban){
-        String comprobar = "0";
-        long test;
-        boolean prueba;
-
-        for (int i = 0; i<=7; ++i){
-            comprobar = comprobar + iban.charAt(i);
-        }
-        test = Long.parseLong(comprobar);
-        if (test == 90100201){
-            prueba = true;
-        }
-        else{
-            prueba = false;
-        }
-        return prueba;
-    }
-    //Aquí se realiza la transferencia
-    public static int transferencia(String ibanEmisor, String ibanReceptor){
-        int dinero = 0;
-        Scanner entrada = new Scanner(System.in);
-        boolean prueba1, prueba2;
-        prueba1 = numTest(ibanEmisor);
-        prueba2 = numTest(ibanReceptor);
-        if (prueba1 && prueba2) {
-            System.out.println("Introduzca la cantidad que quiere transeferir: ");
-            dinero = entrada.nextInt();
-            System.out.println("Transferencia Realizada");
-        }
-        else{
-            dinero = 0;
-        }
-        return dinero;
-    }
 
     //Aqui se hace el prestamo
     public static long hipoteca(){
@@ -429,70 +372,5 @@ public class Principal {
         System.out.print("\n");
     }
 
-    //Aquí te muestra los datos de tu cuenta
-    //El resto de funciones muestran los datos si hay datos, en caso contrario solo muestra los datos que están introducidos
-    public static void Micuenta(long balance, long ultimoDeposito, long ultimaExtraccion, long ultimaTransferencia, String ibanEmisor, String ibanReceptor, long capitalPrestamo, long tiempoPrestamo,
-                                double cuota, double interes, String nombre, String IBAN, String correo, String fechaNacimiento, String DNI){
-        System.out.println("Los datos de su cuenta ahora mismo:");
-        balance(balance);
-        if (ultimoDeposito != 0){
-            ultimoDeposito(ultimoDeposito);
-        }
-        if (ultimaExtraccion != 0){
-            ultimaExtraccion(ultimaExtraccion);
-        }
-        if (ultimaTransferencia != 0){
-            ultimaTransferencia(ultimaTransferencia, ibanEmisor, ibanReceptor);
-        }
-        if (capitalPrestamo != 0){
-            prestamo(capitalPrestamo, tiempoPrestamo, cuota, interes);
-        }
-        if (nombre != "0" || IBAN != "0"){
-            datosPersonales(nombre, DNI, fechaNacimiento, correo, IBAN);
-        }
-        System.out.println("\n");
-    }
-    public static void balance(long balance){
-        System.out.println("Dinero actual: " + balance + "\u20AC");
-    }
-    public static void ultimoDeposito(long ultimoDeposito){
-        System.out.println("Su último deposito fue de " + ultimoDeposito + "\u20AC");
-    }
-    public static void ultimaExtraccion(long ultimaExtraccion){
-        System.out.println("Su última extracción fue de " + ultimaExtraccion + "\u20AC");
-    }
-    public static void ultimaTransferencia(long ultimaTransferencia, String ibanEmisor, String ibanReceptor){
-        System.out.println("Su última transferencia fue de " + ultimaTransferencia + "\u20AC");
-        System.out.println("De la cuenta " + ibanEmisor + " a la cuenta " + ibanReceptor);
-    }
-    public static void prestamo(long capitalPrestado, long tiempoPrestamo, double cuota, double interes){
-        System.out.println("Ha adquirido un prestamo de " + capitalPrestado + "\u20AC");
-        System.out.println("Durante " + tiempoPrestamo + " años");
-        System.out.println("A un interés del " + interes*100 + "%");
-        System.out.println("Con una cuota mensual de " + cuota + "\u20AC");
-    }
-    public static void datosPersonales(String nombre, String DNI, String fechaNacimiento, String correo, String IBAN){
-        int dia, mes, año;
-        char Dia, Mes, Año;
-        Dia = fechaNacimiento.charAt(0);
-        dia = Character.getNumericValue(Dia);
-        Dia = fechaNacimiento.charAt(1);
-        dia = (dia*10) + Character.getNumericValue(Dia);
 
-        Mes = fechaNacimiento.charAt(2);
-        mes = Character.getNumericValue(Mes);
-        Mes = fechaNacimiento.charAt(3);
-        mes = (mes*10) + Character.getNumericValue(Mes);
-
-        Año = fechaNacimiento.charAt(4);
-        año = Character.getNumericValue(Año);
-        Año = fechaNacimiento.charAt(5);
-        año = (año*10) + Character.getNumericValue(Año);
-
-        System.out.println("nombre: " + nombre);
-        System.out.println("DNI: " + DNI);
-        System.out.println("Fecha de nacimiento: " + dia + "/" + mes + "/" + año);
-        System.out.println("Correo: " + correo);
-        System.out.println("Número de cuenta: " + IBAN);
-    }
 }
