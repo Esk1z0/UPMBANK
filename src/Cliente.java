@@ -1,5 +1,5 @@
 public class Cliente {
-    private Cliente[] lista = new Cliente[19];
+    private Cliente[] lista = new Cliente[20];
     private String nombre;
     private String apellidos;
     private String fechaDia;
@@ -9,6 +9,16 @@ public class Cliente {
     private String correo;
     private int codigo;
 
+    public void setCliente(String nombre, String apellidos, String fechaDia, String fechaMes, String fechaAño, String dni, int codigo, String correo){
+        this.nombre = nombre;
+        this.apellidos = apellidos;
+        this.fechaDia = fechaDia;
+        this.fechaMes = fechaMes;
+        this.fechaAño = fechaAño;
+        this.dni = dni;
+        this.codigo = codigo;
+        this.correo = correo;
+    }
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
@@ -57,19 +67,19 @@ public class Cliente {
     public String getCorreo() {
         return correo;
     }
-
     public void ViewCliente(){
         System.out.println("Cliente "+this.toString()+"{ nombre: "+this.getNombre()+" apellidos: "+this.getApellidos()+
                 "Fecha de nacimiento: "+this.getFechaDia()+"/"+this.getFechaMes()+"/"+this.getFechaAño()+
                 " DNI: "+this.getDni()+" codigo: "+this.getCodigo()+" correo: "+this.getCorreo()+" }");
     }
-    public void SetListaCliente(){
-        for (int i=0; i<19; ++i){
+
+    public void CreateListaCliente(){
+        for (int i=0; i<20; ++i){
             this.lista[i] =  new Cliente();
         }
     }
     public void ViewListaClientes(){
-        for(int i=0; i<19; ++i){
+        for(int i=0; i<20; ++i){
             System.out.println(this.lista[i]);
         }
     }
