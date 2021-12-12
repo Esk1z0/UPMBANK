@@ -6,6 +6,7 @@ public class Principal {
     }
     //Aquí está el menú y se ejecutan todas las funciones
     public static void menu(){
+        Cliente ListaClientes = new Cliente();
         long eleccion = 0;
         long balance = 0, ultimoDeposito = 0, ultimaExtraccion = 0, ultimaTransferencia = 0;
         long capitalPrestamo = 0, tiempoPrestamo = 0;
@@ -15,17 +16,12 @@ public class Principal {
 
         System.out.println("Bienvenido, ¿qué desea?");
         do{
-            System.out.print(" Darse de Alta(1)  Crear una cuenta(2)  Depósito(3)  Extración(4)  \n Transferencia(5)  Hipotecarse(6)       Mi Cuenta(7) Salir(0)\n:");
+            System.out.print(" Darse de Alta(1)  Crear una cuenta(2)  Depósito(3)  Extración(4)  \n Transferencia(5)  Hipotecarse(6)  Mi Cuenta(7) Salir(0)\n:");
             eleccion = entrada.nextInt();
 
             if (eleccion == 1) {
                 //funcion darse de alta
-                nombre = NuevaCuenta.nombre();
-                fechaNacimiento = NuevaCuenta.fechaNacimiento();
-                DNI = NuevaCuenta.DNInum();
-                DNIletra = NuevaCuenta.letraDNI(Long.parseLong(DNI));
-                DNI = DNI + DNIletra;
-                correo = NuevaCuenta.correo();
+                
             }
             else if (eleccion == 2) {
                 //funcion crear cuenta

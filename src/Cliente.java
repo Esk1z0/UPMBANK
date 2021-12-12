@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Cliente {
     private Cliente[] lista = new Cliente[20];
     private String nombre;
@@ -171,6 +173,43 @@ public class Cliente {
             lleno = false;
         }
         return lleno;
+    }
+    public boolean isRightDni(String dni){
+        boolean correcto= false;
+    }
+
+
+    public void askForData() {
+        String nombre, apellidos;
+        int diaNac = 0, mesNac = 0, añoNac = 0;
+        char letradni;
+        String DNI;
+        String correo = "a";
+        Fecha date = new Fecha(diaNac, mesNac, añoNac);
+        Scanner entrada = new Scanner(System.in);
+
+        System.out.println("Para crear una cuenta en UPMBank se le va a pedir una serie de datos");
+        System.out.print("Nombre: ");
+        nombre = entrada.nextLine();
+        System.out.print("\nApellidos: ");
+        apellidos = entrada.nextLine();
+        System.out.print("\nDía de nacimiento (dd): ");
+        diaNac = entrada.nextInt();
+        System.out.print("\nMes de nacimiento (mm): ");
+        mesNac = entrada.nextInt();
+        System.out.print("\nAño de nacimiento (aaaa): ");
+        añoNac = entrada.nextInt();
+        System.out.printf("\nSu fecha de nacimiento es: %02d/%02d/%04d", diaNac, mesNac, añoNac);
+        System.out.print("\nDeme su DNI: ");
+        DNI = entrada.nextLine();
+        System.out.println("Error, numero muy largo");
+        System.out.println("Número aceptado");
+
+        do{
+            System.out.println("\nIntroduzca un correo válido de la UPM:");
+            correo = entrada.nextLine();
+        }while (!correo.contains("@alumnos.upm.es") && !correo.contains("@upm.es"));
+        System.out.print("\nSu cuenta ya está regitrada. Felicidades\n");
     }
 
 
