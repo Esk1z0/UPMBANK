@@ -174,19 +174,15 @@ public class Cliente {
         }
         return lleno;
     }
-    public boolean isRightDni(String dni){
-        int n = 7;
-        int numero = 0;
+    public boolean isRightDni(String letradni, double numdni){
         boolean correcto = false;
-        String letra = Character.toString(dni.charAt(8));
         String[] letras = new String[] {"T","R","W","A","G","M","Y","F","P","D","X","B","N","J","Z","S","Q","V","H","L","C","K","E"};
-        for (int i=0 ; i<=7; ++i){
-            numero += dni.charAt(i) * Math.pow(10, n);
-            n = n-1;
-        }
-        if(letras[(numero%23)-1] == letra){
+        int d = (int)(numdni%0.00000023);
+        String letra = letras[d];
+        if (letra == letradni){
             correcto = true;
         }
+
         return correcto;
     }
     public int createCodigo(int num){
@@ -199,8 +195,9 @@ public class Cliente {
     public void askForData(int numCliente) {
         String nombre, apellidos;
         int diaNac = 0, mesNac = 0, añoNac = 0, codigo;
-        char letradni;
         String DNI;
+        String letraDNI = "";
+        double numDNI;
         String correo = "a";
         Scanner entrada = new Scanner(System.in);
 
@@ -217,12 +214,12 @@ public class Cliente {
             System.out.print("\nAño de nacimiento (aaaa): ");
             añoNac = entrada.nextInt();
         }while(Fecha.comprobarFecha(diaNac, mesNac, añoNac) != true);
-        do {
-            System.out.print("\nDeme su DNI: ");
-            DNI = entrada.nextLine();
-            this.isRightDni(dni);
 
-        }while(this.isRightDni(dni));
+        System.out.print("\nDeme los numeros del su DNI: ");
+        DNI = entrada.next();
+        numDNI = Double.parseDouble(DNI);
+        System.out.println("Deme la letra de su DNI en Mayúscula: ");
+        letraDNI = entrada.next();
         System.out.println("DNI Correcto");
         do{
             System.out.println("\nIntroduzca un correo válido de la UPM:");

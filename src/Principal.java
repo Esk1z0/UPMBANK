@@ -25,7 +25,7 @@ public class Principal {
             if (eleccion == 1) {
                 //funcion darse de alta
                 if (ListaClientes.isFull()){
-                    ListaClientes.createNewCliente((int) Math.random());
+                    ListaClientes.createNewCliente(1);
                 }
                 else{
                    numCliente = ListaClientes.findFreeSpace();
