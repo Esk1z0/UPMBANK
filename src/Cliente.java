@@ -175,17 +175,33 @@ public class Cliente {
         return lleno;
     }
     public boolean isRightDni(String dni){
-        boolean correcto= false;
+        int n = 7;
+        int numero = 0;
+        boolean correcto = false;
+        String letra = Character.toString(dni.charAt(8));
+        String[] letras = new String[] {"T","R","W","A","G","M","Y","F","P","D","X","B","N","J","Z","S","Q","V","H","L","C","K","E"};
+        for (int i=0 ; i<=7; ++i){
+            numero += dni.charAt(i) * Math.pow(10, n);
+            n = n-1;
+        }
+        if(letras[(numero%23)-1] == letra){
+            correcto = true;
+        }
+        return correcto;
+    }
+    public int createCodigo(int num){
+        int codigo;
+        codigo = 1000 + (num * 100);
+        return codigo;
     }
 
 
-    public void askForData() {
+    public void askForData(int numCliente) {
         String nombre, apellidos;
-        int diaNac = 0, mesNac = 0, añoNac = 0;
+        int diaNac = 0, mesNac = 0, añoNac = 0, codigo;
         char letradni;
         String DNI;
         String correo = "a";
-        Fecha date = new Fecha(diaNac, mesNac, añoNac);
         Scanner entrada = new Scanner(System.in);
 
         System.out.println("Para crear una cuenta en UPMBank se le va a pedir una serie de datos");
@@ -193,22 +209,28 @@ public class Cliente {
         nombre = entrada.nextLine();
         System.out.print("\nApellidos: ");
         apellidos = entrada.nextLine();
-        System.out.print("\nDía de nacimiento (dd): ");
-        diaNac = entrada.nextInt();
-        System.out.print("\nMes de nacimiento (mm): ");
-        mesNac = entrada.nextInt();
-        System.out.print("\nAño de nacimiento (aaaa): ");
-        añoNac = entrada.nextInt();
-        System.out.printf("\nSu fecha de nacimiento es: %02d/%02d/%04d", diaNac, mesNac, añoNac);
-        System.out.print("\nDeme su DNI: ");
-        DNI = entrada.nextLine();
-        System.out.println("Error, numero muy largo");
-        System.out.println("Número aceptado");
+        do {
+            System.out.print("\nDía de nacimiento (dd): ");
+            diaNac = entrada.nextInt();
+            System.out.print("\nMes de nacimiento (mm): ");
+            mesNac = entrada.nextInt();
+            System.out.print("\nAño de nacimiento (aaaa): ");
+            añoNac = entrada.nextInt();
+        }while(Fecha.comprobarFecha(diaNac, mesNac, añoNac) != true);
+        do {
+            System.out.print("\nDeme su DNI: ");
+            DNI = entrada.nextLine();
+            this.isRightDni(dni);
 
+        }while(this.isRightDni(dni));
+        System.out.println("DNI Correcto");
         do{
             System.out.println("\nIntroduzca un correo válido de la UPM:");
             correo = entrada.nextLine();
         }while (!correo.contains("@alumnos.upm.es") && !correo.contains("@upm.es"));
+        codigo = this.createCodigo(numCliente);
+        this.setListaCliente(numCliente, nombre, apellidos, Integer.toString(diaNac), Integer.toString(mesNac), Integer.toString(añoNac), DNI, codigo, correo);
+        this.showSpecificCliente(numCliente);
         System.out.print("\nSu cuenta ya está regitrada. Felicidades\n");
     }
 
