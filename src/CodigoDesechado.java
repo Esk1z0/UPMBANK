@@ -1,8 +1,13 @@
 public class CodigoDesechado {
     public static void main(String[] args) {
         Cliente Clientes = new Cliente();
-        Clientes.CreateListaCliente();
-        Clientes.ViewListaClientes();
+        for(int i=1; i<5; ++i){
+            Clientes.createNewCliente(i);
+        }
+        Clientes.setListaCliente(1, "Juan", "Rincon", "11","06", "03", "02768876K", 1234, "agapito");
+        Clientes.showLista();
+        Clientes.showAllData();
+
     }
     /* Cliente[] listaClientes = new Cliente[20];
 
