@@ -1,4 +1,8 @@
 public class CodigoDesechado {
+    public static void main(String[] args) {
+        Cliente Clientes = new Cliente();
+        Clientes.SetListaCliente();
+    }
     /* Cliente[] listaClientes = new Cliente[20];
 
     Cliente Cliente0 = new Cliente();
