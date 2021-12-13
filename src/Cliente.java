@@ -230,6 +230,4 @@ public class Cliente {
         this.showSpecificCliente(numCliente);
         System.out.print("\nSu cuenta ya está regitrada. Felicidades\n");
     }
-
-
 }
