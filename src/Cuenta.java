@@ -1,5 +1,5 @@
 public class Cuenta {
-    private Cuenta[] lista = new Cuenta[200];
+    private Cuenta[] lista;
     private int codigo;
     private String IBAN;
     private double dinero;
@@ -33,7 +33,7 @@ public class Cuenta {
     }
 
     //para la lista
-    public void setListaCuenta(int posicion, int codigo, String IBAN, double dinero, String tipocuenta){
+    public void setListaCuenta(int posicion, int codigo, String IBAN, double dinero){
         this.lista[posicion-1].setCuenta(codigo, IBAN, dinero);
     }
     public void setListaCodigo(int posicion, int codigo){
@@ -61,6 +61,9 @@ public class Cuenta {
         this.lista[posicion-1].showCuenta();
     }
 
+    public void createLista(){
+        this.lista = new Cuenta[200];
+    }
     public void createNewCuenta(int posicion){
         this.lista[posicion-1] = new Cuenta();
     }
@@ -83,8 +86,10 @@ public class Cuenta {
     public int howManyCuentas(int codigo){
         int numCuentas = 0;
         for (int i=0; i<200; ++i){
-            if (this.lista[i].getCodigo() == codigo){
-                numCuentas = numCuentas + 1;
+            if(this.lista[i] != null) {
+                if (this.lista[i].getCodigo() == codigo) {
+                    numCuentas = numCuentas + 1;
+                }
             }
         }
         return numCuentas;
@@ -93,9 +98,11 @@ public class Cuenta {
         Cuenta[] cuentas = new Cuenta[10];
         int contador = 0;
         for (int i=0; i<200; ++i){
-            if(this.lista[i].getCodigo() == codigo){
-                cuentas[contador] = this.lista[i].getListaCuenta(i+1);
-                contador = contador+1;
+            if(this.lista[i] != null) {
+                if (this.lista[i].getCodigo() == codigo) {
+                    cuentas[contador] = this.getListaCuenta(i + 1);
+                    contador = contador + 1;
+                }
             }
         }
         return cuentas;

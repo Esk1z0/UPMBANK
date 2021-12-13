@@ -1,36 +1,22 @@
 public class CodigoDesechado {
-    public static boolean dni(String DNI){
-        boolean correcto;
-        String letra = Character.toString(DNI.charAt(8));
-        String letralista;
-        String[] letras = new String[] {"T","R","W","A","G","M","Y","F","P","D","X","B","N","J","Z","S","Q","V","H","L","C","K","E"};
-        int [] numdni = new int[8];
-        int resultado = 0;
-        int contador = 7;
-        for (int i=0; i<=7; ++i){
-            numdni[i] = Integer.parseInt(Character.toString(DNI.charAt(i)));
-        }
-        while(contador >= 0){
-            if (contador == 0){
-                resultado = resultado + (numdni[7-contador]);
-            }
-            else {
-                resultado = resultado + (numdni[7 - contador] * (int) Math.pow(10, contador));
-            }
-            contador = contador - 1;
-        }
-        resultado = resultado%23;
-        letralista = letras[resultado];
-        if(letra.equals(letralista)){
-            correcto = true;
-        }
-        else{
-            correcto = false;
-        }
-        return correcto;
-    }
     public static void main(String[] args) {
-        System.out.println(dni("27335788K"));
+        Cuenta cuentas = new Cuenta();
+        cuentas.createLista();
+        cuentas.createNewCuenta(1);
+        cuentas.createNewCuenta(100);
+        cuentas.setListaCuenta(1, 2000, "1", 0.0);
+        cuentas.setListaCuenta(100, 2000, "111111", 111.0);
+        int f = cuentas.howManyCuentas(2000);
+        cuentas.showAllData(1,110);
+        int n = cuentas.findFreeSpace();
+        Cuenta[] lista = cuentas.getMyCuentas(2000);
+        System.out.println("Cuantas cuentas: "+f+" Espacio Vacío: "+n);
+        for(int i=0; i<lista.length; ++i){
+            if(lista[i] != null) {
+                lista[i].showCuenta();
+            }
+        }
+    }
     }
     /* Cliente Clientes = new Cliente();
         Clientes.createNewCliente(2);
@@ -54,4 +40,4 @@ public class CodigoDesechado {
             correcto = true;
         }
         return correcto;*/
-}
+

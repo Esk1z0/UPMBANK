@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class Cliente {
-    private Cliente[] lista = new Cliente[20];
+    private Cliente[] lista;
     private String nombre;
     private String apellidos;
     private String fechaDia;
@@ -135,10 +135,8 @@ public class Cliente {
         this.lista[posicion-1].showCliente();
     }
 
-    public void createListaCliente(){
-        for (int i=0; i<20; ++i){
-            this.lista[i] =  new Cliente();
-        }
+    public void createLista(){
+        this.lista = new Cliente[20];
     }
     public void createNewCliente(int posicion){
         this.lista[posicion-1] = new Cliente();
