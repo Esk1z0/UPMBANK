@@ -157,12 +157,10 @@ public class Cliente {
     }
     public int findFreeSpace(){
         int n = 0;
-        int contador = 0;
-        while(contador >= 0 && contador <20){
-            if(this.lista[contador] != null){
-                n = contador + 1;
+        for (int i=0; i<20; ++i){
+            if(this.lista[i] == null && n == 0){
+                n = i +1;
             }
-            contador++;
         }
         return n;
     }

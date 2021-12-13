@@ -10,7 +10,7 @@ public class Principal {
 
         int numCliente;
 
-        long eleccion = 0;
+        int eleccion = 0;
         long balance = 0, ultimoDeposito = 0, ultimaExtraccion = 0, ultimaTransferencia = 0;
         long capitalPrestamo = 0, tiempoPrestamo = 0;
         double cuota = 0, interes = 0.03;
@@ -25,10 +25,11 @@ public class Principal {
             if (eleccion == 1) {
                 //funcion darse de alta
                 if (ListaClientes.isFull()){
-                    ListaClientes.createNewCliente(1);
+                    ListaClientes.createNewCliente(9);
                 }
                 else{
                    numCliente = ListaClientes.findFreeSpace();
+                   ListaClientes.createNewCliente(numCliente);
                    ListaClientes.askForData(numCliente);
                 }
             }
@@ -77,5 +78,6 @@ public class Principal {
                 System.out.println("Opción Inválida");
             }
         }while(eleccion != 0);
+        ListaClientes.showAllData();
     }
 }
