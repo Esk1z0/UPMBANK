@@ -107,4 +107,17 @@ public class Cuenta {
         }
         return cuentas;
     }
+    public void updateLista(Cuenta[] listaaux){
+        for(int i=0; i<listaaux.length; ++i){
+            if(listaaux[i] != null) {
+                for(int j=0; j<200; ++j) {
+                    if (this.lista[j] != null){
+                        if(this.lista[j].getCodigo() == listaaux[i].getCodigo() && this.lista[j].getIBAN() == listaaux[i].getIBAN()){
+                            this.lista[j] = listaaux[i];
+                        }
+                    }
+                }
+            }
+        }
+    }
 }

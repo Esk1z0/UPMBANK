@@ -7,7 +7,7 @@ public class Principal {
     //Aquí está el menú y se ejecutan todas las funciones
     public static void menu(){
         Cliente ListaClientes = new Cliente();
-
+        ListaClientes.createLista();
         int numCliente;
 
         int eleccion = 0;
@@ -30,7 +30,7 @@ public class Principal {
                 else{
                    numCliente = ListaClientes.findFreeSpace();
                    ListaClientes.createNewCliente(numCliente);
-                   ListaClientes.askForData(numCliente);
+                   Cliente.askForData(numCliente, ListaClientes);
                 }
             }
             else if (eleccion == 2) {

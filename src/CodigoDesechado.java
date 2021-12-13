@@ -1,6 +1,34 @@
 public class CodigoDesechado {
     public static void main(String[] args) {
-        Cuenta cuentas = new Cuenta();
+        int p,m;
+
+        Cliente ListaClientes = new Cliente();
+        Cuenta ListaCuentas = new Cuenta();
+        Cuenta[] lista = new Cuenta[10];
+        ListaCuentas.createLista();
+        ListaClientes.createLista();
+        ListaClientes.createNewCliente(1);
+        ListaClientes.createNewCliente(3);
+        ListaClientes.setListaCliente(1,"Juan", "Juan", "11", "11", "2000", "02768876K", 1100, "juan@upm.es");
+        ListaClientes.setListaCliente(3,"Juan", "Juan", "11", "11", "2000", "", 1300, "jua@upm.es");
+        p = ListaCuentas.findFreeSpace();
+        ListaCuentas.createNewCuenta(p);
+        ListaCuentas.setListaCuenta(p, 1100,"0000000000", 0.0);
+        p = ListaCuentas.findFreeSpace();
+        ListaCuentas.createNewCuenta(p);
+        ListaCuentas.setListaCuenta(p, 1300,"006565656565000", 100.0);
+        lista = ListaCuentas.getMyCuentas(1300);
+        m = ListaCuentas.howManyCuentas(1300);
+        for(int i=0; i<lista.length; ++i){
+            if(lista[i] != null) {
+                lista[i].showCuenta();
+            }
+        }
+        boolean n = ListaClientes.isInLista("02768870K", "d");
+        System.out.println(n +"  "+ m);
+    }
+}
+    /* Cuenta cuentas = new Cuenta();
         cuentas.createLista();
         cuentas.createNewCuenta(1);
         cuentas.createNewCuenta(100);
@@ -16,9 +44,9 @@ public class CodigoDesechado {
                 lista[i].showCuenta();
             }
         }
-    }
-    }
-    /* Cliente Clientes = new Cliente();
+
+
+        Cliente Clientes = new Cliente();
         Clientes.createNewCliente(2);
         Clientes.setListaCliente(2, "f", "f","11","12", "2000","00", 0, "s@upm.es");
         Clientes.createNewCliente(1);

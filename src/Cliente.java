@@ -162,6 +162,17 @@ public class Cliente {
         }
         return n;
     }
+    public int findCliente(String dni, String Correo){
+        int posicion = 0;
+        for(int i=0; i<20; ++i){
+            if(this.lista[i] != null){
+                if(this.lista[i].getDni() == dni && this.lista[i].getCorreo() == correo){
+                    posicion = i+1;
+                }
+            }
+        }
+        return posicion;
+    }
     public boolean isFull(){
         boolean lleno = true;
         int n = this.findFreeSpace();
@@ -170,6 +181,18 @@ public class Cliente {
         }
         return lleno;
     }
+    public boolean isInLista(String dni, String correo){
+        boolean enLista = false;
+        for (int i=0; i<20; ++i){
+            if (this.lista[i] != null && this.lista[i].getDni() != null && this.lista[i].getCorreo() != null){
+                if(this.lista[i].getDni().equals(dni) || this.lista[i].getCorreo().equals(correo)){
+                    enLista = true;
+                }
+            }
+        }
+
+        return enLista;
+    }
     public int createCodigo(int num){
         int codigo;
         codigo = 1000 + (num * 100);
@@ -177,41 +200,49 @@ public class Cliente {
     }
 
 
-    public void askForData(int numCliente) {
-        String nombre, apellidos;
+    public static void askForData(int numCliente, Cliente Lista) {
+        boolean continua = false;
+        String nombre = "", apellidos = "";
         int diaNac = 0, mesNac = 0, añoNac = 0, codigo;
-        String DNI;
+        String DNI = "";
         String correo = "a";
         Scanner entrada = new Scanner(System.in);
+        while(!continua){
+            System.out.println("Para crear una cuenta en UPMBank se le va a pedir una serie de datos");
+            System.out.print("Nombre: ");
+            nombre = entrada.next();
+            System.out.print("\nApellidos: ");
+            apellidos = entrada.next();
+            do {
+                System.out.print("\nDía de nacimiento (dd): ");
+                diaNac = entrada.nextInt();
+                System.out.print("\nMes de nacimiento (mm): ");
+                mesNac = entrada.nextInt();
+                System.out.print("\nAño de nacimiento (aaaa): ");
+                añoNac = entrada.nextInt();
+            } while (Utilidades.comprobarFecha(diaNac, mesNac, añoNac) != true);
+            do {
+                System.out.print("\nDeme los numeros del su DNI: ");
+                DNI = entrada.next();
 
-        System.out.println("Para crear una cuenta en UPMBank se le va a pedir una serie de datos");
-        System.out.print("Nombre: ");
-        nombre = entrada.next();
-        System.out.print("\nApellidos: ");
-        apellidos = entrada.next();
-        do {
-            System.out.print("\nDía de nacimiento (dd): ");
-            diaNac = entrada.nextInt();
-            System.out.print("\nMes de nacimiento (mm): ");
-            mesNac = entrada.nextInt();
-            System.out.print("\nAño de nacimiento (aaaa): ");
-            añoNac = entrada.nextInt();
-        }while(Utilidades.comprobarFecha(diaNac, mesNac, añoNac) != true);
-        do {
-            System.out.print("\nDeme los numeros del su DNI: ");
-            DNI = entrada.next();
+            } while (Utilidades.dni(DNI) != true);
 
-        }while(Utilidades.dni(DNI) != true);
+            System.out.println("DNI Correcto");
 
-        System.out.println("DNI Correcto");
-
-        do{
-            System.out.println("\nIntroduzca un correo válido de la UPM:");
-            correo = entrada.next();
-        }while (!correo.contains("@alumnos.upm.es") && !correo.contains("@upm.es"));
-        codigo = this.createCodigo(numCliente);
-        this.setListaCliente(numCliente, nombre, apellidos, Integer.toString(diaNac), Integer.toString(mesNac), Integer.toString(añoNac), DNI, codigo, correo);
-        this.showListaCliente(numCliente);
+            do {
+                System.out.println("\nIntroduzca un correo válido de la UPM:");
+                correo = entrada.next();
+            } while (!correo.contains("@alumnos.upm.es") && !correo.contains("@upm.es"));
+            if (Lista.isInLista(DNI, correo) == false){
+                continua = true;
+            }
+            else{
+                System.out.println("Lo sentimos pero ese DNI/Correo ya están registrado");
+            }
+        }
+        codigo = Lista.createCodigo(numCliente);
+        Lista.setListaCliente(numCliente, nombre, apellidos, Integer.toString(diaNac), Integer.toString(mesNac), Integer.toString(añoNac), DNI, codigo, correo);
+        Lista.showListaCliente(numCliente);
         System.out.print("\nSu cuenta ya está regitrada. Felicidades\n");
     }
 }

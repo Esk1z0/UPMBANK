@@ -131,7 +131,7 @@ public class Utilidades {
         }while(eleccion < 1 || eleccion > 4);
         return CS;
     }
-    public static int c1(String CE, String CS){
+    private static int c1(String CE, String CS){
         int num, a1, a2, a3, a4, b1, b2, b3, b4, r, c;
         int c1 = 0;
 
@@ -161,7 +161,7 @@ public class Utilidades {
         }
         return c1;
     }
-    public static int c2(int d1, int d2, int d3, int d4, int d5, int d6, int d7, int d8, int d9, int d10) {
+    private static int c2(int d1, int d2, int d3, int d4, int d5, int d6, int d7, int d8, int d9, int d10) {
         int num, r, c;
         int c2 = 0;
         num = (d1) + (2 * d2) + (4 * d3) + (8 * d4) + (5 * d5) + (10 * d6) + (9 * d7) + (7 * d8) + (3 * d9) + (6 * d10);
@@ -175,5 +175,12 @@ public class Utilidades {
             c2 = 1;
         }
         return c2;
+    }
+    public Cuenta[] deleteListaCuenta(Cuenta[] lista){
+        Cuenta[] listaAux = new Cuenta[lista.length];
+        for(int i=0; i<lista.length; ++i){
+            lista[i] = listaAux[i];
+        }
+        return lista;
     }
     }
