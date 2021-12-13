@@ -72,9 +72,9 @@ public class Cliente {
         return correo;
     }
     public void showCliente(){
-        System.out.println("Cliente "+this.toString()+"{ nombre: "+this.getNombre()+" apellidos: "+this.getApellidos()+
-                "Fecha de nacimiento: "+this.getFechaDia()+"/"+this.getFechaMes()+"/"+this.getFechaAño()+
-                " DNI: "+this.getDni()+" codigo: "+this.getCodigo()+" correo: "+this.getCorreo()+" }");
+        System.out.println(this.toString()+"{Nombre: "+this.getNombre()+" Apellidos: "+this.getApellidos()+
+                " Fecha de nacimiento: "+this.getFechaDia()+"/"+this.getFechaMes()+"/"+this.getFechaAño()+
+                " DNI: "+this.getDni()+" Codigo: "+this.getCodigo()+" Correo: "+this.getCorreo()+" }");
     }
 
     //Funciones para los objetos de cada lista
@@ -131,7 +131,7 @@ public class Cliente {
     public String getListaCorreo(int posicion) {
         return this.lista[posicion-1].getCorreo();
     }
-    public void showSpecificCliente(int posicion){
+    public void showListaCliente(int posicion){
         this.lista[posicion-1].showCliente();
     }
 
@@ -171,17 +171,6 @@ public class Cliente {
             lleno = false;
         }
         return lleno;
-    }
-    public boolean isRightDni(String letradni, double numdni){
-        boolean correcto = false;
-        String[] letras = new String[] {"T","R","W","A","G","M","Y","F","P","D","X","B","N","J","Z","S","Q","V","H","L","C","K","E"};
-        int d = (int)(numdni%0.00000023);
-        String letra = letras[d];
-        if (letra == letradni){
-            correcto = true;
-        }
-
-        return correcto;
     }
     public int createCodigo(int num){
         int codigo;
@@ -224,7 +213,7 @@ public class Cliente {
         }while (!correo.contains("@alumnos.upm.es") && !correo.contains("@upm.es"));
         codigo = this.createCodigo(numCliente);
         this.setListaCliente(numCliente, nombre, apellidos, Integer.toString(diaNac), Integer.toString(mesNac), Integer.toString(añoNac), DNI, codigo, correo);
-        this.showSpecificCliente(numCliente);
+        this.showListaCliente(numCliente);
         System.out.print("\nSu cuenta ya está regitrada. Felicidades\n");
     }
 }
