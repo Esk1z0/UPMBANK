@@ -69,7 +69,7 @@ public class Principal {
             }
             else if (eleccion == 7) {
                 //funcion mi cuenta
-                Cuenta.Micuenta(balance, ultimoDeposito, ultimaExtraccion, ultimaTransferencia, ibanEmisor, ibanreceptor, capitalPrestamo, tiempoPrestamo, cuota, interes, nombre, IBAN, correo, fechaNacimiento, DNI);
+                Miinfo.Micuenta(balance, ultimoDeposito, ultimaExtraccion, ultimaTransferencia, ibanEmisor, ibanreceptor, capitalPrestamo, tiempoPrestamo, cuota, interes, nombre, IBAN, correo, fechaNacimiento, DNI);
             }
             else if (eleccion == 0){
                 System.out.println("Vuelva pronto");

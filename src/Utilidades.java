@@ -1,38 +1,31 @@
-public class Fecha {
+public class Utilidades {
     private int dia;
     private int mes;
     private int año;
 
-    public Fecha(int dia, int mes, int año) {
+    public Utilidades(int dia, int mes, int año) {
         this.dia=dia;
         this.mes=mes;
         this.año=año;
     }
-
     public int getDia(){
         return dia;
     }
-
     public void setDia(int dia){
         this.dia = dia;
     }
-
     public int getMes(){
         return mes;
     }
-
     public void setMes(int mes){
         this.mes = mes;
     }
-
     public int getAño(){
         return año;
     }
-
     public void setAño(int año){
         this.año = año;
     }
-
     public void imprimir()
     {
         System.out.printf("%02d/%02d/%04d", dia, mes, año);
@@ -42,7 +35,6 @@ public class Fecha {
     public static boolean esBisiesto(int año) {
         return (año % 4 == 0 && año % 100 != 0) || año % 400 == 0;
     }
-
     public static boolean comprobarFecha(int dia, int mes, int año) {
         boolean fechaCorrecta = (año >= 1920 && año <= 2003 && mes >= 1 && mes <=12 && dia >= 1 && dia <= 31);
         if (fechaCorrecta){
@@ -53,4 +45,35 @@ public class Fecha {
         }
         return fechaCorrecta;
     }
+    public static boolean dni(String DNI){
+        boolean correcto;
+        String letra = Character.toString(DNI.charAt(8));
+        String letralista;
+        String[] letras = new String[] {"T","R","W","A","G","M","Y","F","P","D","X","B","N","J","Z","S","Q","V","H","L","C","K","E"};
+        int [] numdni = new int[8];
+        int resultado = 0;
+        int contador = 7;
+        for (int i=0; i<=7; ++i){
+            numdni[i] = Integer.parseInt(Character.toString(DNI.charAt(i)));
+        }
+        while(contador >= 0){
+            if (contador == 0){
+                resultado = resultado + (numdni[7-contador]);
+            }
+            else {
+                resultado = resultado + (numdni[7 - contador] * (int) Math.pow(10, contador));
+            }
+            contador = contador - 1;
+        }
+        resultado = resultado%23;
+        letralista = letras[resultado];
+        if(letra.equals(letralista)){
+            correcto = true;
+        }
+        else{
+            correcto = false;
+        }
+        return correcto;
+    }
+
 }

@@ -194,16 +194,14 @@ public class Cliente {
         String nombre, apellidos;
         int diaNac = 0, mesNac = 0, añoNac = 0, codigo;
         String DNI;
-        String letraDNI = "";
-        double numDNI;
         String correo = "a";
         Scanner entrada = new Scanner(System.in);
 
         System.out.println("Para crear una cuenta en UPMBank se le va a pedir una serie de datos");
         System.out.print("Nombre: ");
-        nombre = entrada.nextLine();
+        nombre = entrada.next();
         System.out.print("\nApellidos: ");
-        apellidos = entrada.nextLine();
+        apellidos = entrada.next();
         do {
             System.out.print("\nDía de nacimiento (dd): ");
             diaNac = entrada.nextInt();
@@ -211,17 +209,18 @@ public class Cliente {
             mesNac = entrada.nextInt();
             System.out.print("\nAño de nacimiento (aaaa): ");
             añoNac = entrada.nextInt();
-        }while(Fecha.comprobarFecha(diaNac, mesNac, añoNac) != true);
+        }while(Utilidades.comprobarFecha(diaNac, mesNac, añoNac) != true);
+        do {
+            System.out.print("\nDeme los numeros del su DNI: ");
+            DNI = entrada.next();
 
-        System.out.print("\nDeme los numeros del su DNI: ");
-        DNI = entrada.next();
-        numDNI = Double.parseDouble(DNI);
-        System.out.println("Deme la letra de su DNI en Mayúscula: ");
-        letraDNI = entrada.next();
+        }while(Utilidades.dni(DNI) != true);
+
         System.out.println("DNI Correcto");
+
         do{
             System.out.println("\nIntroduzca un correo válido de la UPM:");
-            correo = entrada.nextLine();
+            correo = entrada.next();
         }while (!correo.contains("@alumnos.upm.es") && !correo.contains("@upm.es"));
         codigo = this.createCodigo(numCliente);
         this.setListaCliente(numCliente, nombre, apellidos, Integer.toString(diaNac), Integer.toString(mesNac), Integer.toString(añoNac), DNI, codigo, correo);
