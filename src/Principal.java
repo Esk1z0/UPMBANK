@@ -10,13 +10,13 @@ public class Principal {
         Cuenta ListaCuentas = new Cuenta();
         ListaClientes.createLista();
         ListaCuentas.createLista();
-        int numCliente, numcuenta;
-
+        int numCliente, numCuenta;
+        String IBAN = "0";
         int eleccion = 0;
         long balance = 0, ultimoDeposito = 0, ultimaExtraccion = 0, ultimaTransferencia = 0;
         long capitalPrestamo = 0, tiempoPrestamo = 0;
         double cuota = 0, interes = 0.03;
-        String nombre = "0", IBAN = "0", correo = "0", fechaNacimiento = "0",DNI = "0", DNIletra,ibanEmisor = "0", ibanreceptor = "0";
+        String nombre = "0", correo = "0", fechaNacimiento = "0",DNI = "0", DNIletra,ibanEmisor = "0", ibanreceptor = "0";
         Scanner entrada = new Scanner(System.in);
 
         System.out.println("Bienvenido, ¿qué desea?");
@@ -27,8 +27,8 @@ public class Principal {
             if (eleccion == 1) {
                 //funcion darse de alta
                 if (ListaClientes.isFull()){
-                    ListaClientes.createNewCliente(9);
-                    Utilidades.askForDataCliente(9, ListaClientes);
+                    ListaClientes.createNewCliente(1);
+                    Utilidades.askForDataCliente(1, ListaClientes);
                 }
                 else{
                    numCliente = ListaClientes.findFreeSpace();
@@ -39,7 +39,10 @@ public class Principal {
             else if (eleccion == 2) {
                 //funcion crear cuenta
                 numCliente = Utilidades.logInCliente(ListaClientes, entrada);
-
+                if(numCliente != 0){
+                    IBAN = Utilidades.askForDataCuenta(ListaCuentas, entrada);
+                    ListaCuentas.setListaCuenta(ListaCuentas.findFreeSpace(), ListaClientes.getListaCodigo(numCliente), IBAN, 0.0);
+                }
                 IBAN = Movimientos.cuenta();
             }
             else if (eleccion == 3) {

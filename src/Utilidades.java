@@ -77,9 +77,9 @@ public class Utilidades {
         }
         return correcto;
     }
-    public static String createIBAN(){
+    public static String createIBAN(String cs){
         String CE = "9010";
-        String CS = getCS();
+        String CS = cs;
         long NC = 0;
         int c1, c2;
         String Iban;
@@ -110,26 +110,6 @@ public class Utilidades {
         Iban = CE + CS + String.valueOf(c1) + String.valueOf(c2) + String.valueOf(NC);
         return Iban;
 
-    }
-    private static String getCS(){
-        Scanner entrada = new Scanner(System.in);
-        String CS = "0";
-        int eleccion;
-        do {
-            System.out.print("\n¿En qué Campus se encuentra?");
-            System.out.print("\n1) Campus Sur  2) Campus Montegancedo  3) Campus Madrid Ciudad  4) Campus Ciudad Universitaria");
-            eleccion = entrada.nextInt();
-            if (eleccion == 1) {
-                CS = "0201";
-            } else if (eleccion == 2) {
-                CS = "0204";
-            } else if (eleccion == 3) {
-                CS = "0203";
-            } else if (eleccion == 4) {
-                CS = "0202";
-            }
-        }while(eleccion < 1 || eleccion > 4);
-        return CS;
     }
     private static int c1(String CE, String CS){
         int num, a1, a2, a3, a4, b1, b2, b3, b4, r, c;
@@ -228,10 +208,11 @@ public class Utilidades {
         Lista.showListaCliente(numCliente);
         System.out.print("\nSu cuenta ya está regitrada. Felicidades\n");
     }
-
     public static int logInCliente(Cliente ListaClientes, Scanner entrada){
         String DNI;
         String correo;
+        int contador = 0;
+        int posicion = 0;
         do {
             System.out.print("\nIntroduzca su DNI: ");
             DNI = entrada.next();
@@ -239,14 +220,50 @@ public class Utilidades {
             correo = entrada.next();
             if (ListaClientes.findCliente(DNI, correo) == 0){
                 System.out.println("Lo sentimos, habrá insertado mal los datos, vuelva a interntarlo.");
+                contador = contador + 1;
             }
-        }while(ListaClientes.findCliente(DNI, correo) == 0);
-        int posicion = ListaClientes.findCliente(DNI, correo);
-        System.out.println("Bienvenido " + ListaClientes.getListaNombre(posicion) + " " + ListaClientes.getListaApellidos(posicion) + " !");
+        }while(ListaClientes.findCliente(DNI, correo) == 0 && contador < 3);
+        if(ListaClientes.findCliente(DNI, correo) != 0) {
+            posicion = ListaClientes.findCliente(DNI, correo);
+            System.out.println("Bienvenido " + ListaClientes.getListaNombre(posicion) + " " + ListaClientes.getListaApellidos(posicion) + " !");
+        }
+        else if (ListaClientes.findCliente(DNI, correo) == 0){
+            System.out.println("Lo sentimos, demasiados intentos");
+        }
         return posicion;
     }
 
-    public static void askForDataCuenta(int numCuenta, Cuenta lista){
-        System.out.println("");
+    public static String askForDataCuenta(Cuenta lista, Scanner entrada){
+        int eleccion = 0;
+        String IBAN = "";
+        String CS = "0";
+        do {
+            System.out.print("\n1) Ahorro    2) Remunerada   3) Corriente\nQué tipo de cuenta desea: ");
+            eleccion = entrada.nextInt();
+            if(eleccion != 3){
+                System.out.print("\nEsa opción no está disponible ahora mismo");
+            }
+        }while(eleccion != 3);
+
+        do {
+            System.out.print("\n¿En qué Campus se encuentra?");
+            System.out.print("\n1) Campus Sur  2) Campus Montegancedo  3) Campus Madrid Ciudad  4) Campus Ciudad Universitaria\n: ");
+            eleccion = entrada.nextInt();
+            if (eleccion == 1) {
+                CS = "0201";
+            } else if (eleccion == 2) {
+                CS = "0204";
+            } else if (eleccion == 3) {
+                CS = "0203";
+            } else if (eleccion == 4) {
+                CS = "0202";
+            } else{
+                System.out.println("Esa opcion no está disponible");
+            }
+        }while(eleccion < 1 || eleccion > 4);
+        while(lista.ibanInLista(IBAN)){
+            IBAN = createIBAN(CS);
+        }
+        return IBAN;
     }
     }

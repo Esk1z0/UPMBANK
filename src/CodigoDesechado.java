@@ -1,13 +1,17 @@
+import java.util.Scanner;
+
 public class CodigoDesechado {
     public static void main(String[] args) {
         int p;
         boolean m;
+        Scanner entrada = new Scanner(System.in);
 
         Cliente ListaClientes = new Cliente();
         Cuenta ListaCuentas = new Cuenta();
         Cuenta[] lista = new Cuenta[10];
         ListaCuentas.createLista();
         ListaClientes.createLista();
+
         ListaClientes.createNewCliente(1);
         ListaClientes.createNewCliente(3);
         ListaClientes.setListaCliente(1,"Juan", "Juan", "11", "11", "2000", "02768876K", 1100, "juan@upm.es");
@@ -21,6 +25,7 @@ public class CodigoDesechado {
         p = ListaCuentas.findFreeSpace();
         ListaCuentas.createNewCuenta(p);
         ListaCuentas.setListaCuenta(p, 1300,"11111156565000", 2000.0);
+
         lista = ListaCuentas.getMyCuentas(1300);
         m = ListaCuentas.ibanInLista("0000000000");
         for(int i=0; i<lista.length; ++i){
@@ -30,9 +35,36 @@ public class CodigoDesechado {
         }
         boolean n = ListaClientes.isInLista("02768876K", "d");
         System.out.println(n +"  "+ m);
+        int num = Utilidades.logInCliente(ListaClientes, entrada);
+        if(num != 0) {
+            ListaClientes.showListaCliente(num);
+        }
     }
 }
-    /* Cuenta cuentas = new Cuenta();
+    /* private static String getCS(){
+        Scanner entrada = new Scanner(System.in);
+        String CS = "0";
+        int eleccion;
+        do {
+            System.out.print("\n¿En qué Campus se encuentra?");
+            System.out.print("\n1) Campus Sur  2) Campus Montegancedo  3) Campus Madrid Ciudad  4) Campus Ciudad Universitaria");
+            eleccion = entrada.nextInt();
+            if (eleccion == 1) {
+                CS = "0201";
+            } else if (eleccion == 2) {
+                CS = "0204";
+            } else if (eleccion == 3) {
+                CS = "0203";
+            } else if (eleccion == 4) {
+                CS = "0202";
+            } else{
+                System.out.println("Esa opcion no está disponible");
+            }
+        }while(eleccion < 1 || eleccion > 4);
+        return CS;
+    }
+
+        Cuenta cuentas = new Cuenta();
         cuentas.createLista();
         cuentas.createNewCuenta(1);
         cuentas.createNewCuenta(100);
