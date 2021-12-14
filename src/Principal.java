@@ -38,6 +38,8 @@ public class Principal {
             }
             else if (eleccion == 2) {
                 //funcion crear cuenta
+                numCliente = Utilidades.logInCliente(ListaClientes, entrada);
+
                 IBAN = Movimientos.cuenta();
             }
             else if (eleccion == 3) {
