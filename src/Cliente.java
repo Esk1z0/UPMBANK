@@ -164,8 +164,6 @@ public class Cliente {
     }
     public int findCliente(String dni, String Correo){
         int posicion = 0;
-        String DNI = "";
-        String CORREO = "";
         for (int i=0; i<20; ++i){
             if (this.lista[i] != null && this.lista[i].getDni() != null && this.lista[i].getCorreo() != null){
                 if(this.lista[i].getDni().equals(dni) && this.lista[i].getCorreo().equals(Correo)){
