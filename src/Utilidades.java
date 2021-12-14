@@ -228,7 +228,25 @@ public class Utilidades {
         Lista.showListaCliente(numCliente);
         System.out.print("\nSu cuenta ya está regitrada. Felicidades\n");
     }
-    public static void askForDataCuenta(int numCuenta, Cuenta lista){
 
+    public static int logInCliente(Cliente ListaClientes, Scanner entrada){
+        String DNI;
+        String correo;
+        do {
+            System.out.print("\nIntroduzca su DNI: ");
+            DNI = entrada.next();
+            System.out.print("\nIntroduzca su correo de la UPM: ");
+            correo = entrada.next();
+            if (ListaClientes.findCliente(DNI, correo) == 0){
+                System.out.println("Lo sentimos, habrá insertado mal los datos, vuelva a interntarlo.");
+            }
+        }while(ListaClientes.findCliente(DNI, correo) == 0);
+        int posicion = ListaClientes.findCliente(DNI, correo);
+        System.out.println("Bienvenido " + ListaClientes.getListaNombre(posicion) + " " + ListaClientes.getListaApellidos(posicion) + " !");
+        return posicion;
+    }
+
+    public static void askForDataCuenta(int numCuenta, Cuenta lista){
+        System.out.println("");
     }
     }
