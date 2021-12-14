@@ -261,9 +261,9 @@ public class Utilidades {
                 System.out.println("Esa opcion no está disponible");
             }
         }while(eleccion < 1 || eleccion > 4);
-        while(lista.ibanInLista(IBAN)){
+        do{
             IBAN = createIBAN(CS);
-        }
+        }while(lista.ibanInLista(IBAN));
         return IBAN;
     }
     }

@@ -39,11 +39,17 @@ public class Principal {
             else if (eleccion == 2) {
                 //funcion crear cuenta
                 numCliente = Utilidades.logInCliente(ListaClientes, entrada);
-                if(numCliente != 0){
+                if(numCliente != 0 && ListaCuentas.howManyCuentas(ListaClientes.getListaCodigo(numCliente)) < 10){
                     IBAN = Utilidades.askForDataCuenta(ListaCuentas, entrada);
-                    ListaCuentas.setListaCuenta(ListaCuentas.findFreeSpace(), ListaClientes.getListaCodigo(numCliente), IBAN, 0.0);
+                    int espacio = ListaCuentas.findFreeSpace();
+                    ListaCuentas.createNewCuenta(espacio);
+                    ListaCuentas.setListaCuenta(espacio , ListaClientes.getListaCodigo(numCliente), IBAN, 0.0);
+                    ListaCuentas.showListaCuenta(espacio);
+                    System.out.println("Gracias por crear su nueva cuenta");
                 }
-                IBAN = Movimientos.cuenta();
+                if (ListaCuentas.howManyCuentas(ListaClientes.getListaCodigo(numCliente)) == 10){
+                    System.out.println("Ha alcanzado su límite de cuentas");
+                }
             }
             else if (eleccion == 3) {
                 //funcion deposito
@@ -87,5 +93,6 @@ public class Principal {
             }
         }while(eleccion != 0);
         ListaClientes.showAllData();
+        ListaCuentas.showAllData(0,200);
     }
 }

@@ -2,6 +2,7 @@ import java.util.Scanner;
 
 public class CodigoDesechado {
     public static void main(String[] args) {
+        String k;
         int p;
         boolean m;
         Scanner entrada = new Scanner(System.in);
@@ -35,10 +36,14 @@ public class CodigoDesechado {
         }
         boolean n = ListaClientes.isInLista("02768876K", "d");
         System.out.println(n +"  "+ m);
+        /*
         int num = Utilidades.logInCliente(ListaClientes, entrada);
         if(num != 0) {
             ListaClientes.showListaCliente(num);
         }
+        */
+        k = Utilidades.askForDataCuenta(ListaCuentas, entrada);
+        System.out.println(k);
     }
 }
     /* private static String getCS(){
