@@ -120,4 +120,15 @@ public class Cuenta {
             }
         }
     }
+    public boolean ibanInLista(String IBAN){
+        boolean enLista = false;
+        for (int i=0; i<200; ++i){
+            if(this.lista[i] != null){
+                if(this.lista[i].getIBAN() == IBAN){
+                    enLista = true;
+                }
+            }
+        }
+        return enLista;
+    }
 }

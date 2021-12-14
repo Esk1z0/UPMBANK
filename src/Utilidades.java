@@ -183,4 +183,52 @@ public class Utilidades {
         }
         return lista;
     }
+    public static void askForDataCliente(int numCliente, Cliente Lista) {
+        boolean continua = false;
+        String nombre = "", apellidos = "";
+        int diaNac = 0, mesNac = 0, añoNac = 0, codigo;
+        String DNI = "";
+        String correo = "a";
+        Scanner entrada = new Scanner(System.in);
+        while(!continua){
+            System.out.println("Para crear una cuenta en UPMBank se le va a pedir una serie de datos");
+            System.out.print("Nombre: ");
+            nombre = entrada.next();
+            System.out.print("\nApellidos: ");
+            apellidos = entrada.next();
+            do {
+                System.out.print("\nDía de nacimiento (dd): ");
+                diaNac = entrada.nextInt();
+                System.out.print("\nMes de nacimiento (mm): ");
+                mesNac = entrada.nextInt();
+                System.out.print("\nAño de nacimiento (aaaa): ");
+                añoNac = entrada.nextInt();
+            } while (Utilidades.comprobarFecha(diaNac, mesNac, añoNac) != true);
+            do {
+                System.out.print("\nDeme los numeros del su DNI: ");
+                DNI = entrada.next();
+
+            } while (Utilidades.dni(DNI) != true);
+
+            System.out.println("DNI Correcto");
+
+            do {
+                System.out.println("\nIntroduzca un correo válido de la UPM:");
+                correo = entrada.next();
+            } while (!correo.contains("@alumnos.upm.es") && !correo.contains("@upm.es"));
+            if (Lista.isInLista(DNI, correo) == false){
+                continua = true;
+            }
+            else{
+                System.out.println("Lo sentimos pero ese DNI/Correo ya están registrado");
+            }
+        }
+        codigo = Lista.createCodigo(numCliente);
+        Lista.setListaCliente(numCliente, nombre, apellidos, Integer.toString(diaNac), Integer.toString(mesNac), Integer.toString(añoNac), DNI, codigo, correo);
+        Lista.showListaCliente(numCliente);
+        System.out.print("\nSu cuenta ya está regitrada. Felicidades\n");
+    }
+    public static void askForDataCuenta(int numCuenta, Cuenta lista){
+
+    }
     }

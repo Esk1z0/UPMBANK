@@ -1,6 +1,7 @@
 public class CodigoDesechado {
     public static void main(String[] args) {
-        int p,m;
+        int p;
+        boolean m;
 
         Cliente ListaClientes = new Cliente();
         Cuenta ListaCuentas = new Cuenta();
@@ -17,14 +18,17 @@ public class CodigoDesechado {
         p = ListaCuentas.findFreeSpace();
         ListaCuentas.createNewCuenta(p);
         ListaCuentas.setListaCuenta(p, 1300,"006565656565000", 100.0);
+        p = ListaCuentas.findFreeSpace();
+        ListaCuentas.createNewCuenta(p);
+        ListaCuentas.setListaCuenta(p, 1300,"11111156565000", 2000.0);
         lista = ListaCuentas.getMyCuentas(1300);
-        m = ListaCuentas.howManyCuentas(1300);
+        m = ListaCuentas.ibanInLista("0000000000");
         for(int i=0; i<lista.length; ++i){
             if(lista[i] != null) {
                 lista[i].showCuenta();
             }
         }
-        boolean n = ListaClientes.isInLista("02768870K", "d");
+        boolean n = ListaClientes.isInLista("02768876K", "d");
         System.out.println(n +"  "+ m);
     }
 }

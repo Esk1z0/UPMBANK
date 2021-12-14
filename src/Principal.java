@@ -7,8 +7,10 @@ public class Principal {
     //Aquí está el menú y se ejecutan todas las funciones
     public static void menu(){
         Cliente ListaClientes = new Cliente();
+        Cuenta ListaCuentas = new Cuenta();
         ListaClientes.createLista();
-        int numCliente;
+        ListaCuentas.createLista();
+        int numCliente, numcuenta;
 
         int eleccion = 0;
         long balance = 0, ultimoDeposito = 0, ultimaExtraccion = 0, ultimaTransferencia = 0;
@@ -26,11 +28,12 @@ public class Principal {
                 //funcion darse de alta
                 if (ListaClientes.isFull()){
                     ListaClientes.createNewCliente(9);
+                    Utilidades.askForDataCliente(9, ListaClientes);
                 }
                 else{
                    numCliente = ListaClientes.findFreeSpace();
                    ListaClientes.createNewCliente(numCliente);
-                   Cliente.askForData(numCliente, ListaClientes);
+                   Utilidades.askForDataCliente(numCliente, ListaClientes);
                 }
             }
             else if (eleccion == 2) {
