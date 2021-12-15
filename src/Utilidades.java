@@ -232,7 +232,6 @@ public class Utilidades {
         }
         return posicion;
     }
-
     public static String askForDataCuenta(Cuenta lista, Scanner entrada){
         int eleccion = 0;
         String IBAN = "";
@@ -265,5 +264,17 @@ public class Utilidades {
             IBAN = createIBAN(CS);
         }while(lista.ibanInLista(IBAN));
         return IBAN;
+    }
+    public static Operacion[] appendLista(Operacion[] lista, Operacion objeto){
+        int tamaño = lista.length;
+        int contador = lista.length;
+        Operacion[] lista2 = new Operacion[tamaño+1];
+        while(tamaño != 0){
+            lista2[lista.length-contador] = lista[lista.length-contador];
+            contador = contador - 1;
+            tamaño = tamaño - 1;
+        }
+        lista2[lista2.length-1] = objeto;
+        return lista2;
     }
     }

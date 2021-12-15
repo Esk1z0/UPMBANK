@@ -74,5 +74,12 @@ public class Operacion {
     public Operacion getSiguiente() {
         return siguiente;
     }
+    /*public Operacion[] getAllOperacionTipo(String Tipo, int Size){
+        int tamaño = Size;
+        Operacion[] lista = new Operacion[1];
+        while (tamaño > 1){
+
+        }
+    }*/
 
 }

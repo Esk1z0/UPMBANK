@@ -2,16 +2,35 @@ import java.util.Scanner;
 
 public class CodigoDesechado {
     public static void main(String[] args) {
+        prueba2();
+    }
+    public static void prueba1(){
         Operacion primero = new Operacion();
         Operacion segundo = new Operacion();
         Operacion tercero = new Operacion();
         primero.setThisOperacion(true, "Cabeza", 0.0, "","");
+        segundo.setThisOperacion(true, "Deposito", 23.0, "","");
+        tercero.setThisOperacion(true, "Deposito", 0.0, "","");
         segundo.setNextSiguinte(tercero);
         primero.setNextSiguinte(segundo);
         primero.setSize(3);
         int Size = primero.createNewOperacion(primero.getSize());
         primero.setSize(Size);
         System.out.println(primero.getSize());
+        //Operacion[] lista = primero.getAllOperacionTipo("Deposito", primero.getSize());
+    }
+    public static void prueba2(){
+        Operacion primero = new Operacion();
+        Operacion segundo = new Operacion();
+        Operacion tercero = new Operacion();
+        primero.setThisOperacion(true, "Cabeza", 0.0, "","");
+        segundo.setThisOperacion(true, "Deposito", 23.0, "","");
+        tercero.setThisOperacion(true, "Deposito", 0.0, "","");
+        Operacion[] lista = new Operacion[] {primero, segundo};
+        Operacion[] lista2 = Utilidades.appendLista(lista, tercero);
+        for(int i=0; i< lista2.length; ++i){
+            System.out.println(lista2[i]);
+        }
     }
 }
     /* String k;
