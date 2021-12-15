@@ -32,19 +32,7 @@ public class Operacion {
     public void setSize(int size) {
         this.size = size;
     }
-    public int createNewOperacion(int Size){
-        int tamaño = Size;
-        if(tamaño == 1){
-            this.siguiente = new Operacion();
-            this.siguiente.setCabeza(false);
-            tamaño = 2;
-        }
-        else if (tamaño > 1){
-            tamaño = this.siguiente.createNewOperacion(Size-1);
-            tamaño = tamaño + 1;
-        }
-        return tamaño;
-    }
+
     public void setSiguiente(boolean cabeza, String Tipo, int Importe, String IbanCuenta, String IbanReceptor) {
         this.setCabeza(cabeza);
         this.siguiente.setTipo(Tipo);
@@ -54,6 +42,17 @@ public class Operacion {
     }
     public void setNextSiguinte(Operacion siguiente){
         this.siguiente = siguiente;
+    }
+    public void setLastSiguiente(boolean cabeza, String tipo, double importe, String ibanCuenta, String ibanReceptor){
+        int tamaño = this.getSize();
+        Operacion aux = this;
+        while(tamaño > 0){
+            if(aux.getSiguiente() != null) {
+                aux = aux.getSiguiente();
+            }
+            tamaño = tamaño - 1;
+        }
+        aux.setThisOperacion(cabeza, tipo, importe, ibanCuenta, ibanReceptor);
     }
 
     public String getTipo() {
@@ -74,12 +73,40 @@ public class Operacion {
     public Operacion getSiguiente() {
         return siguiente;
     }
-    /*public Operacion[] getAllOperacionTipo(String Tipo, int Size){
-        int tamaño = Size;
-        Operacion[] lista = new Operacion[1];
-        while (tamaño > 1){
 
+    public int createNewOperacion(int Size){
+        int tamaño = Size;
+        if(tamaño == 1){
+            this.siguiente = new Operacion();
+            this.siguiente.setCabeza(false);
+            tamaño = 2;
         }
-    }*/
+        else if (tamaño > 1){
+            tamaño = this.siguiente.createNewOperacion(Size-1);
+            tamaño = tamaño + 1;
+        }
+        return tamaño;
+    }
+    public Operacion[] getAllOperacionTipo(String Tipo){
+        int tamaño = this.getSize();
+        Operacion aux = this;
+        Operacion[] listaAux2 = new Operacion[0];
+        Operacion[] listaAux;
+        while (tamaño > 0 ){
+            if(aux.getTipo() != null) {
+                if (aux.getTipo() == Tipo) {
+                    listaAux = Utilidades.appendLista(listaAux2, aux);
+                    listaAux2 = listaAux;
+
+                }
+            }
+            if (aux.getSiguiente() != null) {
+                aux = aux.getSiguiente();
+
+            }
+            tamaño = tamaño - 1;
+        }
+        return listaAux2;
+    }
 
 }

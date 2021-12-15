@@ -124,11 +124,22 @@ public class Cuenta {
         boolean enLista = false;
         for (int i=0; i<200; ++i){
             if(this.lista[i] != null){
-                if(this.lista[i].getIBAN() == IBAN){
+                if(this.lista[i].getIBAN().equals(IBAN)){
                     enLista = true;
                 }
             }
         }
         return enLista;
+    }
+    public int findPosicionIban(String IBAN){
+        int posicion = 0;
+        for (int i=0; i<200; ++i){
+            if(this.lista[i] != null){
+                if(this.lista[i].getIBAN().equals(IBAN)){
+                    posicion = i + 1;
+                }
+            }
+        }
+        return posicion;
     }
 }

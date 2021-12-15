@@ -8,11 +8,16 @@ public class Principal {
     public static void menu(){
         Cliente ListaClientes = new Cliente();
         Cuenta ListaCuentas = new Cuenta();
+        Operacion ListaOperaciones = new Operacion();
         ListaClientes.createLista();
         ListaCuentas.createLista();
-        int numCliente, numCuenta;
+        ListaOperaciones.setSize(1);
+        ListaOperaciones.setCabeza(true);
+        int numCliente, numCuenta, codigoCliente;
         String IBAN = "0";
         int eleccion = 0;
+        double dinero;
+
         long balance = 0, ultimoDeposito = 0, ultimaExtraccion = 0, ultimaTransferencia = 0;
         long capitalPrestamo = 0, tiempoPrestamo = 0;
         double cuota = 0, interes = 0.03;
@@ -53,8 +58,17 @@ public class Principal {
             }
             else if (eleccion == 3) {
                 //funcion deposito
-                ultimoDeposito = Movimientos.deposito(IBAN);
-                balance = balance + ultimoDeposito;
+                numCliente = Utilidades.logInCliente(ListaClientes, entrada);
+                codigoCliente = ListaClientes.getListaCodigo(numCliente);
+                IBAN = Utilidades.logInClienteCuenta(ListaClientes, ListaCuentas, entrada, numCliente, codigoCliente);
+                dinero = Utilidades.askMoney(entrada);
+                int newSize = ListaOperaciones.createNewOperacion(ListaOperaciones.getSize());
+                ListaOperaciones.setSize(newSize);
+                ListaOperaciones.setLastSiguiente(false, "Deposito", dinero, IBAN, "");
+                int posicion = ListaCuentas.findPosicionIban(IBAN);
+                ListaCuentas.setListaDinero(posicion, ListaCuentas.getListaDinero(posicion) + dinero);
+                ListaCuentas.showListaCuenta(posicion);
+
             }
             else if (eleccion == 4) {
                 //funcion extraccion

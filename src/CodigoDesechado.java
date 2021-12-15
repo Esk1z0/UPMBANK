@@ -2,38 +2,55 @@ import java.util.Scanner;
 
 public class CodigoDesechado {
     public static void main(String[] args) {
-        prueba2();
+        prueba4();
     }
     public static void prueba1(){
         Operacion primero = new Operacion();
         Operacion segundo = new Operacion();
         Operacion tercero = new Operacion();
         primero.setThisOperacion(true, "Cabeza", 0.0, "","");
-        segundo.setThisOperacion(true, "Deposito", 23.0, "","");
-        tercero.setThisOperacion(true, "Deposito", 0.0, "","");
+        segundo.setThisOperacion(false, "Deposito", 23.0, "","");
+        tercero.setThisOperacion(false, "Deposito", 0.0, "","");
         segundo.setNextSiguinte(tercero);
         primero.setNextSiguinte(segundo);
         primero.setSize(3);
         int Size = primero.createNewOperacion(primero.getSize());
+        primero.setLastSiguiente(false, "Deposito", -2.2, "","");
         primero.setSize(Size);
         System.out.println(primero.getSize());
-        //Operacion[] lista = primero.getAllOperacionTipo("Deposito", primero.getSize());
+        Operacion[] lista = primero.getAllOperacionTipo("Deposito");
+        for(int i=0; i< lista.length; ++i){
+            System.out.println(lista[i]);
+        }
     }
     public static void prueba2(){
         Operacion primero = new Operacion();
         Operacion segundo = new Operacion();
         Operacion tercero = new Operacion();
+        Operacion cuarto = new Operacion();
+        Operacion cinco = new Operacion();
+
         primero.setThisOperacion(true, "Cabeza", 0.0, "","");
         segundo.setThisOperacion(true, "Deposito", 23.0, "","");
         tercero.setThisOperacion(true, "Deposito", 0.0, "","");
+        cuarto.setThisOperacion(true, "Transferencia", 0.0, "","");
+        cinco.setThisOperacion(true, "Deposito", 0.0, "","");
+        primero.setSize(5);
+        cuarto.setNextSiguinte(cinco);
+        tercero.setNextSiguinte(cuarto);
+        segundo.setNextSiguinte(tercero);
+        primero.setNextSiguinte(segundo);
         Operacion[] lista = new Operacion[] {primero, segundo};
         Operacion[] lista2 = Utilidades.appendLista(lista, tercero);
-        for(int i=0; i< lista2.length; ++i){
-            System.out.println(lista2[i]);
+        Operacion[] lista3 = primero.getAllOperacionTipo("Deposito");
+        for(int i=0; i< lista3.length; ++i){
+            System.out.println(lista3[i]);
         }
+        System.out.println("Operaciones: " + primero + "  " + segundo + "  " + tercero + "  " + cuarto + "  " + cinco);
     }
-}
-    /* String k;
+
+    public static void prueba3() {
+        String k;
         int p;
         boolean m;
         Scanner entrada = new Scanner(System.in);
@@ -46,27 +63,63 @@ public class CodigoDesechado {
 
         ListaClientes.createNewCliente(1);
         ListaClientes.createNewCliente(3);
-        ListaClientes.setListaCliente(1,"Juan", "Juan", "11", "11", "2000", "02768876K", 1100, "juan@upm.es");
-        ListaClientes.setListaCliente(3,"Juan", "Juan", "11", "11", "2000", "", 1300, "jua@upm.es");
+        ListaClientes.setListaCliente(1, "Juan", "Juan", "11", "11", "2000", "02768876K", 1100, "juan@upm.es");
+        ListaClientes.setListaCliente(3, "Juan", "Juan", "11", "11", "2000", "", 1300, "jua@upm.es");
         p = ListaCuentas.findFreeSpace();
         ListaCuentas.createNewCuenta(p);
-        ListaCuentas.setListaCuenta(p, 1100,"0000000000", 0.0);
+        ListaCuentas.setListaCuenta(p, 1100, "0000000000", 0.0);
         p = ListaCuentas.findFreeSpace();
         ListaCuentas.createNewCuenta(p);
-        ListaCuentas.setListaCuenta(p, 1300,"006565656565000", 100.0);
+        ListaCuentas.setListaCuenta(p, 1300, "006565656565000", 100.0);
         p = ListaCuentas.findFreeSpace();
         ListaCuentas.createNewCuenta(p);
-        ListaCuentas.setListaCuenta(p, 1300,"11111156565000", 2000.0);
+        ListaCuentas.setListaCuenta(p, 1300, "11111156565000", 2000.0);
 
         lista = ListaCuentas.getMyCuentas(1300);
         m = ListaCuentas.ibanInLista("0000000000");
-        for(int i=0; i<lista.length; ++i){
-            if(lista[i] != null) {
+        for (int i = 0; i < lista.length; ++i) {
+            if (lista[i] != null) {
                 lista[i].showCuenta();
             }
         }
         boolean n = ListaClientes.isInLista("02768876K", "d");
-        System.out.println(n +"  "+ m);
+        System.out.println(n + "  " + m);
+    }
+
+    public static void prueba4(){
+        String k;
+        int p, numCliente, codigoCliente;
+        boolean m;
+        Scanner entrada = new Scanner(System.in);
+
+        Cliente ListaClientes = new Cliente();
+        Cuenta ListaCuentas = new Cuenta();
+        Cuenta[] lista = new Cuenta[10];
+        ListaCuentas.createLista();
+        ListaClientes.createLista();
+
+        ListaClientes.createNewCliente(1);
+        ListaClientes.createNewCliente(3);
+        ListaClientes.setListaCliente(1, "Juan", "Juan", "11", "11", "2000", "02768876K", 1100, "juan@upm.es");
+        ListaClientes.setListaCliente(3, "Juan", "Juan", "11", "11", "2000", "", 1300, "jua@upm.es");
+        p = ListaCuentas.findFreeSpace();
+        ListaCuentas.createNewCuenta(p);
+        ListaCuentas.setListaCuenta(p, 1100, "0000000000", 0.0);
+        p = ListaCuentas.findFreeSpace();
+        ListaCuentas.createNewCuenta(p);
+        ListaCuentas.setListaCuenta(p, 1100, "006565656565000", 100.0);
+        p = ListaCuentas.findFreeSpace();
+        ListaCuentas.createNewCuenta(p);
+        ListaCuentas.setListaCuenta(p, 1300, "11111156565000", 2000.0);
+
+        //String IBAN = entrada.next();
+
+        //System.out.println(ListaCuentas.ibanInLista(IBAN));
+        numCliente = Utilidades.logInCliente(ListaClientes, entrada);
+        codigoCliente = ListaClientes.getListaCodigo(numCliente);
+        String IBAN = Utilidades.logInClienteCuenta(ListaClientes, ListaCuentas, entrada, numCliente, codigoCliente);
+
+    }
         /*
         int num = Utilidades.logInCliente(ListaClientes, entrada);
         if(num != 0) {
@@ -139,3 +192,4 @@ public class CodigoDesechado {
             correcto = true;
         }
         return correcto;*/
+}

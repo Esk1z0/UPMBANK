@@ -277,4 +277,40 @@ public class Utilidades {
         lista2[lista2.length-1] = objeto;
         return lista2;
     }
+    public static String logInClienteCuenta(Cliente ListaClientes, Cuenta ListaCuentas, Scanner entrada, int numCliente, int codigoCliente){
+        boolean exists;
+        String IBAN;
+        int contador = 3;
+        Cuenta[] MyCuenta;
+
+        MyCuenta = ListaCuentas.getMyCuentas(codigoCliente);
+        for(int i=0;i<MyCuenta.length; ++i){
+            if(MyCuenta[i] != null) {
+                System.out.println("Cuenta: " + MyCuenta[i].getIBAN() + " Dinero: " + MyCuenta[i].getDinero());
+            }
+        }
+        do {
+            System.out.println("Introduzca el IBAN de la cuenta a la que quiere depositar dinero: ");
+            IBAN = entrada.next();
+            String aux = IBAN;
+            exists = ListaCuentas.ibanInLista(aux);
+            if(!exists){
+                System.out.println("Ups, habrá introducido mal el IBAN");
+                contador = contador - 1;
+            }
+        }while(!exists && contador > 0);
+        if(contador > 0 || exists) {
+            System.out.println("Ha seleccionado la cuenta " + IBAN);
+        }
+        else if(contador == 0){
+            IBAN = "";
+        }
+        return IBAN;
+    }
+    public static double askMoney(Scanner entrada){
+        System.out.println("Introduzca el importe en euros: ");
+        double dinero = entrada.nextDouble();
+        System.out.println("Importe: " + dinero + "\u20AC ");
+        return dinero;
+    }
     }
