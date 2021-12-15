@@ -2,7 +2,19 @@ import java.util.Scanner;
 
 public class CodigoDesechado {
     public static void main(String[] args) {
-        String k;
+        Operacion primero = new Operacion();
+        Operacion segundo = new Operacion();
+        Operacion tercero = new Operacion();
+        primero.setThisOperacion(true, "Cabeza", 0.0, "","");
+        segundo.setNextSiguinte(tercero);
+        primero.setNextSiguinte(segundo);
+        primero.setSize(3);
+        int Size = primero.createNewOperacion(primero.getSize());
+        primero.setSize(Size);
+        System.out.println(primero.getSize());
+    }
+}
+    /* String k;
         int p;
         boolean m;
         Scanner entrada = new Scanner(System.in);
@@ -41,12 +53,11 @@ public class CodigoDesechado {
         if(num != 0) {
             ListaClientes.showListaCliente(num);
         }
-        */
+
         k = Utilidades.askForDataCuenta(ListaCuentas, entrada);
-        System.out.println(k);
-    }
-}
-    /* private static String getCS(){
+                System.out.println(k);
+
+                private static String getCS(){
         Scanner entrada = new Scanner(System.in);
         String CS = "0";
         int eleccion;
@@ -109,4 +120,3 @@ public class CodigoDesechado {
             correcto = true;
         }
         return correcto;*/
-
