@@ -68,7 +68,6 @@ public class Principal {
                 int posicion = ListaCuentas.findPosicionIban(IBAN);
                 ListaCuentas.setListaDinero(posicion, ListaCuentas.getListaDinero(posicion) + dinero);
                 ListaCuentas.showListaCuenta(posicion);
-
             }
             else if (eleccion == 4) {
                 //funcion extraccion
@@ -107,6 +106,6 @@ public class Principal {
             }
         }while(eleccion != 0);
         ListaClientes.showAllData();
-        ListaCuentas.showAllData(0,200);
+        ListaCuentas.showAllData(1,200);
     }
 }
