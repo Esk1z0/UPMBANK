@@ -16,11 +16,10 @@ public class Principal {
         int numCliente, numCuenta, codigoCliente;
         String IBAN = "0", IBANReceptor = "0";
         int eleccion = 0;
-        double dinero;
+        double dinero, interes = 0.03, cuota = 0;
 
         long balance = 0, ultimoDeposito = 0, ultimaExtraccion = 0, ultimaTransferencia = 0;
         long capitalPrestamo = 0, tiempoPrestamo = 0;
-        double cuota = 0, interes = 0.03;
         String nombre = "0", correo = "0", fechaNacimiento = "0",DNI = "0", DNIletra,ibanEmisor = "0", ibanreceptor = "0";
         Scanner entrada = new Scanner(System.in);
 
@@ -108,15 +107,21 @@ public class Principal {
             }
             else if (eleccion == 6) {
                 //funcion hipotecarse
-                if (IBAN == "0"){
-                    System.out.println("No tiene cuenta, lo sentimos mucho");
-                }
-                else if (IBAN != "0") {
-                    capitalPrestamo = Prestamo.hipoteca();
-                    balance = balance + capitalPrestamo;
-                    tiempoPrestamo = Prestamo.meses();
-                    cuota = Prestamo.cuota(tiempoPrestamo, capitalPrestamo, interes);
-                    Prestamo.tablaAmortización(capitalPrestamo, tiempoPrestamo, cuota, interes);
+                numCliente = Utilidades.logInCliente(ListaClientes, entrada);
+                codigoCliente = ListaClientes.getListaCodigo(numCliente);
+                IBAN = Utilidades.logInClienteCuenta(ListaClientes, ListaCuentas, entrada, numCliente, codigoCliente);
+                if(IBAN != "") {
+                    dinero = Utilidades.askMoney(entrada);
+                    int meses = Utilidades.mesesHipoteca();
+                    String Meses = Integer.toString(meses);
+                    int newSize = ListaOperaciones.createNewOperacion(ListaOperaciones.getSize());
+                    ListaOperaciones.setSize(newSize);
+                    ListaOperaciones.setLastSiguiente(false, "Hipoteca", dinero, IBAN, Meses);
+                    int posicion = ListaCuentas.findPosicionIban(IBAN);
+                    ListaCuentas.setListaDinero(posicion, ListaCuentas.getListaDinero(posicion) + dinero);
+                    cuota = Utilidades.calculateCuota(meses, dinero, interes);
+                    Utilidades.showTablaAmortizacion(dinero, meses, cuota, interes);
+                    ListaCuentas.showListaCuenta(posicion);
                 }
             }
             else if (eleccion == 7) {

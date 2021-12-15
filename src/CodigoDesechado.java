@@ -120,6 +120,9 @@ public class CodigoDesechado {
         String IBAN = Utilidades.logInClienteCuenta(ListaClientes, ListaCuentas, entrada, numCliente, codigoCliente);
 
     }
+    public static void prueba5(){
+        Prestamo.hipoteca();
+    }
         /*
         int num = Utilidades.logInCliente(ListaClientes, entrada);
         if(num != 0) {
