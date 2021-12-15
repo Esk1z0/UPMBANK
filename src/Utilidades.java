@@ -307,6 +307,33 @@ public class Utilidades {
         }
         return IBAN;
     }
+    public static String ibanTransferencia(Cuenta ListaCuentas, Scanner entrada){
+        String IBAN;
+        boolean exists;
+        int contador = 3;
+        for(int i=0; i<200; ++i){
+            if(ListaCuentas.getListaCuenta(i) != null){
+                System.out.println(ListaCuentas.getListaIBAN(i));
+            }
+        }
+        do {
+            System.out.println("Introduzca el IBAN de la cuenta a la que quiere depositar dinero: ");
+            IBAN = entrada.next();
+            String aux = IBAN;
+            exists = ListaCuentas.ibanInLista(aux);
+            if(!exists){
+                System.out.println("Ups, habrá introducido mal el IBAN");
+                contador = contador - 1;
+            }
+        }while(!exists && contador > 0);
+        if(contador > 0 || exists) {
+            System.out.println("Ha seleccionado la cuenta " + IBAN);
+        }
+        else if(contador == 0){
+            IBAN = "";
+        }
+        return IBAN;
+    }
     public static double askMoney(Scanner entrada){
         System.out.println("Introduzca el importe en euros: ");
         double dinero = entrada.nextDouble();

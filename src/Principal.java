@@ -14,7 +14,7 @@ public class Principal {
         ListaOperaciones.setSize(1);
         ListaOperaciones.setCabeza(true);
         int numCliente, numCuenta, codigoCliente;
-        String IBAN = "0";
+        String IBAN = "0", IBANReceptor = "0";
         int eleccion = 0;
         double dinero;
 
@@ -61,25 +61,50 @@ public class Principal {
                 numCliente = Utilidades.logInCliente(ListaClientes, entrada);
                 codigoCliente = ListaClientes.getListaCodigo(numCliente);
                 IBAN = Utilidades.logInClienteCuenta(ListaClientes, ListaCuentas, entrada, numCliente, codigoCliente);
-                dinero = Utilidades.askMoney(entrada);
-                int newSize = ListaOperaciones.createNewOperacion(ListaOperaciones.getSize());
-                ListaOperaciones.setSize(newSize);
-                ListaOperaciones.setLastSiguiente(false, "Deposito", dinero, IBAN, "");
-                int posicion = ListaCuentas.findPosicionIban(IBAN);
-                ListaCuentas.setListaDinero(posicion, ListaCuentas.getListaDinero(posicion) + dinero);
-                ListaCuentas.showListaCuenta(posicion);
+                if(IBAN != "") {
+                    dinero = Utilidades.askMoney(entrada);
+                    int newSize = ListaOperaciones.createNewOperacion(ListaOperaciones.getSize());
+                    ListaOperaciones.setSize(newSize);
+                    ListaOperaciones.setLastSiguiente(false, "Deposito", dinero, IBAN, "");
+                    int posicion = ListaCuentas.findPosicionIban(IBAN);
+                    ListaCuentas.setListaDinero(posicion, ListaCuentas.getListaDinero(posicion) + dinero);
+                    ListaCuentas.showListaCuenta(posicion);
+                }
             }
             else if (eleccion == 4) {
                 //funcion extraccion
-                ultimaExtraccion = Movimientos.retirada(IBAN);
-                balance = balance - ultimaExtraccion;
+                numCliente = Utilidades.logInCliente(ListaClientes, entrada);
+                codigoCliente = ListaClientes.getListaCodigo(numCliente);
+                IBAN = Utilidades.logInClienteCuenta(ListaClientes, ListaCuentas, entrada, numCliente, codigoCliente);
+                if(IBAN != "") {
+                    dinero = Utilidades.askMoney(entrada);
+                    int newSize = ListaOperaciones.createNewOperacion(ListaOperaciones.getSize());
+                    ListaOperaciones.setSize(newSize);
+                    ListaOperaciones.setLastSiguiente(false, "Retirada", 0 - dinero, IBAN, "");
+                    int posicion = ListaCuentas.findPosicionIban(IBAN);
+                    ListaCuentas.setListaDinero(posicion, ListaCuentas.getListaDinero(posicion) - dinero);
+                    ListaCuentas.showListaCuenta(posicion);
+                }
             }
             else if (eleccion == 5) {
                 //funcion transferencia
-                ibanEmisor = Movimientos.ibanEmisor();
-                ibanreceptor = Movimientos.ibanReceptor();
-                ultimaTransferencia = Movimientos.transferencia(ibanEmisor, ibanreceptor);
-                balance = balance - ultimaTransferencia;
+                numCliente = Utilidades.logInCliente(ListaClientes, entrada);
+                codigoCliente = ListaClientes.getListaCodigo(numCliente);
+                IBAN = Utilidades.logInClienteCuenta(ListaClientes, ListaCuentas, entrada, numCliente, codigoCliente);
+                IBANReceptor = Utilidades.ibanTransferencia(ListaCuentas, entrada);
+                if(IBAN != "" && IBANReceptor != "") {
+                    dinero = Utilidades.askMoney(entrada);
+                    int newSize = ListaOperaciones.createNewOperacion(ListaOperaciones.getSize());
+                    ListaOperaciones.setSize(newSize);
+                    ListaOperaciones.setLastSiguiente(false, "Transferencia", dinero, IBAN, IBANReceptor);
+                    int posicion = ListaCuentas.findPosicionIban(IBAN);
+                    ListaCuentas.setListaDinero(posicion, ListaCuentas.getListaDinero(posicion) - dinero);
+                    ListaCuentas.showListaCuenta(posicion);
+
+                    posicion = ListaCuentas.findPosicionIban(IBANReceptor);
+                    ListaCuentas.setListaDinero(posicion, ListaCuentas.getListaDinero(posicion) + dinero);
+                    ListaCuentas.showListaCuenta(posicion);
+                }
             }
             else if (eleccion == 6) {
                 //funcion hipotecarse
