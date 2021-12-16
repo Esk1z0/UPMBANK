@@ -1,11 +1,18 @@
 public class Operacion {
-    private boolean cabeza;
-    private String tipo;
-    private double importe;
-    private String ibanCuenta;
-    private String ibanReceptor;
-    private int size;
-    private Operacion siguiente;
+
+    //Esta funcion no tiene lista, si no que enlaza todas las operaciones una detrás de otra
+
+    //Aquí están los atributos
+
+    private boolean cabeza; //Este indica cual es la operacion inicial qe seá usado como objeto con el que trabajar
+    private String tipo; //Aqui se indica que tipo de operacion es
+    private double importe; //Aquí se indica el dinero que se introduce o se extrae
+    private String ibanCuenta; //Este es el IBAN que relaciona la operacion con la cuenta
+    private String ibanReceptor;// Esta es la variable que funciona como el IBAN de reccion en la transferencia y los meses en la hipoteca
+    private int size; //Este es el tamaño de la lista o la cantidad de operaciones
+    private Operacion siguiente; // Este es el puntero a la siguiente operacion
+
+    //Aqui estan las funciones para cada objeto operacion
 
     public void setThisOperacion(boolean cabeza, String tipo, double importe, String ibanCuenta, String ibanReceptor){
         this.cabeza = cabeza;
