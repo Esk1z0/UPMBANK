@@ -148,7 +148,6 @@ public class Cliente {
 
     //Como solo declaro un objeto cliente que uso como lista de clientes tengo que crear estas funciones especiales
 
-
     public void createLista(){//Esta funcion crea la lista, sirve para ese objeto cliente que se usa como lista de clientes, en el resto no es necesario usarla
         this.lista = new Cliente[20];
     }

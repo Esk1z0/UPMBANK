@@ -1,10 +1,18 @@
 public class Cuenta {
-    private Cuenta[] lista;
-    private int codigo;
-    private String IBAN;
-    private double dinero;
 
-    //para cada cuenta
+    //Este objeto funciona igual que la lista cliente, un objeto puede ser cuenta o lista de cuentas según como se utilice
+
+    //Los atributos del objeto cuenta
+
+    private Cuenta[] lista; //Para el objeto que será la lista de cuentas
+    private int codigo; //El codigo que relaciona el cliente con sus cuentas
+    private String IBAN; //El IBAN único de cada cuenta que lo relaciona con sus operaciones
+    private double dinero; // El dinero que posee cada cuenta
+
+    //Aquí estan las funciones para cada cliente especifico
+
+    //Aqui las funciones setter
+
     public void setCuenta(int codigo, String IBAN, double dinero){
         this.codigo = codigo;
         this.IBAN = IBAN;
@@ -19,6 +27,9 @@ public class Cuenta {
     public void setDinero(double dinero) {
         this.dinero = dinero;
     }
+
+    //Las funciones getter para cada cliente especifico
+
     public int getCodigo() {
         return codigo;
     }
@@ -30,9 +41,12 @@ public class Cuenta {
     }
     public void showCuenta(){
         System.out.println(this.toString()+"{IBAN: "+this.getIBAN()+" Dinero: "+this.getDinero()+" Codigo: "+this.getCodigo()+"}");
-    }
+    }//Esta funcion muestra la informacion de la cuenta
 
-    //para la lista
+    //Aquí estan las funciones para cada cliente dentro de la lista con la posicion en la lista como parametro
+
+    //Aqui las funciones setter para cada cliente de la lista
+
     public void setListaCuenta(int posicion, int codigo, String IBAN, double dinero){
         this.lista[posicion-1].setCuenta(codigo, IBAN, dinero);
     }
@@ -45,6 +59,9 @@ public class Cuenta {
     public void setListaDinero(int posicion, double dinero){
         this.lista[posicion-1].setDinero(dinero);
     }
+
+    //Aqui las funciones getter para cada cliente
+
     public Cuenta getListaCuenta(int posicion){
         return this.lista[posicion-1];
     }
@@ -59,22 +76,24 @@ public class Cuenta {
     }
     public void showListaCuenta(int posicion){
         this.lista[posicion-1].showCuenta();
-    }
+    }//Esta funcion muestra la informacion de la cuenta con la posicion de la cuenta en lista como parametro
 
-    public void createLista(){
+    //Aqui estan las funciones de la cuenta que tengo que crear para poder usar el objeto como lista de cuentas
+
+    public void createLista(){//Esta funcion define a funcion lista para el objeto que será lista de cuentas
         this.lista = new Cuenta[200];
     }
-    public void createNewCuenta(int posicion){
+    public void createNewCuenta(int posicion){//Esta funcion crea un objeto cuenta en la posicion de la lista que se pasa como parametro
         this.lista[posicion-1] = new Cuenta();
     }
-    public void showAllData(int inferior, int superior){
+    public void showAllData(int inferior, int superior){//Esta funcion muestra el nombre y los atributos de todos los objetos de la lista
         for(int i=(inferior-1); i<superior; ++i){
             if (this.lista[i] != null) {
                 this.lista[i].showCuenta();
             }
         }
     }
-    public int findFreeSpace(){
+    public int findFreeSpace(){//Esta funcion encuentra un hueco libre en la lista de cuentas
         int n = 0;
         for (int i=0; i<200; ++i){
             if(this.lista[i] == null && n == 0){
@@ -83,7 +102,7 @@ public class Cuenta {
         }
         return n;
     }
-    public int howManyCuentas(int codigo){
+    public int howManyCuentas(int codigo){//Esta funcion devuelve las cuentas que pertenecen a un cliente mediante el codigo del cliente
         int numCuentas = 0;
         for (int i=0; i<200; ++i){
             if(this.lista[i] != null) {
@@ -94,7 +113,7 @@ public class Cuenta {
         }
         return numCuentas;
     }
-    public Cuenta[] getMyCuentas(int codigo){
+    public Cuenta[] getMyCuentas(int codigo){//Esta funcion devuelve una lista con todas las cuentas del cliente qu se mete por parametro (el codigo del cliente)
         Cuenta[] cuentas = new Cuenta[10];
         int contador = 0;
         for (int i=0; i<200; ++i){
@@ -107,7 +126,7 @@ public class Cuenta {
         }
         return cuentas;
     }
-    public void updateLista(Cuenta[] listaaux){
+    public void updateLista(Cuenta[] listaaux){//Esta funcion recibe como parametro una lista con las cuentas y actualiza la informacion de la lsta general de cuenttas con las informacion del parametro
         for(int i=0; i<listaaux.length; ++i){
             if(listaaux[i] != null) {
                 for(int j=0; j<200; ++j) {
@@ -120,7 +139,7 @@ public class Cuenta {
             }
         }
     }
-    public boolean ibanInLista(String IBAN){
+    public boolean ibanInLista(String IBAN){//Esta funcion booleana te dice si ya existe este IBAN dentro de la lista de cuentas
         boolean enLista = false;
         for (int i=0; i<200; ++i){
             if(this.lista[i] != null){
@@ -131,7 +150,7 @@ public class Cuenta {
         }
         return enLista;
     }
-    public int findPosicionIban(String IBAN){
+    public int findPosicionIban(String IBAN){//Esta funcion devuelve la posicion de una cuenta dentro de la lista buscandola por su IBAN
         int posicion = 0;
         for (int i=0; i<200; ++i){
             if(this.lista[i] != null){
