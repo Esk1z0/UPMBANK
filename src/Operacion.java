@@ -14,6 +14,8 @@ public class Operacion {
 
     //Aqui estan las funciones para cada objeto operacion
 
+    //Aqui estan las funciones setter para cada variable
+
     public void setThisOperacion(boolean cabeza, String tipo, double importe, String ibanCuenta, String ibanReceptor){
         this.cabeza = cabeza;
         this.tipo = tipo;
@@ -46,10 +48,10 @@ public class Operacion {
         this.siguiente.setImporte(Importe);
         this.siguiente.setIbanCuenta(IbanCuenta);
         this.siguiente.setIbanReceptor(IbanReceptor);
-    }
+    }//Es el constructor para el siguiente objeto
     public void setNextSiguinte(Operacion siguiente){
         this.siguiente = siguiente;
-    }
+    }//Eso hace que el puntero siguiente apunte al objeto siguiente que metes como parametro
     public void setLastSiguiente(boolean cabeza, String tipo, double importe, String ibanCuenta, String ibanReceptor){
         int tamaño = this.getSize();
         Operacion aux = this;
@@ -60,7 +62,9 @@ public class Operacion {
             tamaño = tamaño - 1;
         }
         aux.setThisOperacion(cabeza, tipo, importe, ibanCuenta, ibanReceptor);
-    }
+    }//Este es el contructor para la ultima operacion
+
+    //Aqui estan las funciones getter de cada cliente
 
     public String getTipo() {
         return tipo;
@@ -80,6 +84,8 @@ public class Operacion {
     public Operacion getSiguiente() {
         return siguiente;
     }
+
+
 
     public int createNewOperacion(int Size){
         int tamaño = Size;
