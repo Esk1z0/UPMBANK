@@ -405,4 +405,28 @@ public class Utilidades {
         }
         System.out.print("\n");
     }
+
+
+    public static void showMyData(Cliente clienteAux, Cuenta[] listaCuentas, Operacion ListaOperaciones){
+        String Nombre = clienteAux.getNombre();
+        String Apellidos = clienteAux.getApellidos();
+        String FechaNac = clienteAux.getFechaDia() + "/" + clienteAux.getFechaMes() + "/" + clienteAux.getFechaAño();
+        String Correo = clienteAux.getCorreo();
+        String DNI = clienteAux.getDni();
+        System.out.print("Nombre Cliente: " + Nombre + "\nApellidos Cliente: " + Apellidos +
+                "\nFecha de Nacimiento: " + FechaNac + "\nCorreo: " + Correo + "\nDNI: " + DNI);
+        for(int i = 0; i <= listaCuentas.length; ++i){
+            Cuenta cuentaAux = listaCuentas[i];
+            Operacion[] listaOp = ListaOperaciones.getAllOperacionCuenta(cuentaAux.getIBAN());
+
+
+        }
+    }
+    public static void showCuentaOperaciones(Cuenta cuenta, Operacion[] lista){
+        System.out.print("\nCuenta: " + cuenta.getIBAN());
+        for(int i=0; i <= lista.length; ++i){
+            if (lista[i].getTipo())
+            System.out.println(lista[i].getTipo() + "\t" + lista[i].getImporte());
+        }
+    }
     }

@@ -100,13 +100,13 @@ public class Operacion {
         }
         return tamaño;
     }
-    public Operacion[] getAllOperacionTipo(String Tipo){
+    public Operacion[] getAllOperacionTipo(String Tipo) {
         int tamaño = this.getSize();
         Operacion aux = this;
         Operacion[] listaAux2 = new Operacion[0];
         Operacion[] listaAux;
-        while (tamaño > 0 ){
-            if(aux.getTipo() != null) {
+        while (tamaño > 0) {
+            if (aux.getTipo() != null) {
                 if (aux.getTipo() == Tipo) {
                     listaAux = Utilidades.appendLista(listaAux2, aux);
                     listaAux2 = listaAux;
@@ -122,4 +122,25 @@ public class Operacion {
         return listaAux2;
     }
 
+    public Operacion[] getAllOperacionCuenta(String IbanCuenta){
+        int tamaño = this.getSize();
+        Operacion aux = this;
+        Operacion[] listaAux2 = new Operacion[0];
+        Operacion[] listaAux;
+        while (tamaño > 0 ){
+            if(aux.getIbanCuenta() != null) {
+                if (aux.getIbanCuenta() == IbanCuenta) {
+                    listaAux = Utilidades.appendLista(listaAux2, aux);
+                    listaAux2 = listaAux;
+
+                }
+            }
+            if (aux.getSiguiente() != null) {
+                aux = aux.getSiguiente();
+
+            }
+            tamaño = tamaño - 1;
+        }
+        return listaAux2;
+    }
 }

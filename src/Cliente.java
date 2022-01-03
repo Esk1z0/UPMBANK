@@ -118,6 +118,9 @@ public class Cliente {
 
     //Funciones getter para los clientes dentro de la lista
 
+    public Cliente getListaCliente(int posicion){
+        return this.lista[posicion-1];
+    }
     public String getListaNombre(int posicion) {
         return this.lista[posicion-1].getNombre();
     }
