@@ -414,19 +414,37 @@ public class Utilidades {
         String Correo = clienteAux.getCorreo();
         String DNI = clienteAux.getDni();
         System.out.print("Nombre Cliente: " + Nombre + "\nApellidos Cliente: " + Apellidos +
-                "\nFecha de Nacimiento: " + FechaNac + "\nCorreo: " + Correo + "\nDNI: " + DNI);
-        for(int i = 0; i <= listaCuentas.length; ++i){
-            Cuenta cuentaAux = listaCuentas[i];
-            Operacion[] listaOp = ListaOperaciones.getAllOperacionCuenta(cuentaAux.getIBAN());
-
-
+                "\nFecha de Nacimiento: " + FechaNac + "\nCorreo: " + Correo + "\nDNI: " + DNI + "\n");
+        for(int i = 0; i < listaCuentas.length; ++i){
+            if (listaCuentas[i] != null) {
+                Cuenta cuentaAux = listaCuentas[i];
+                Operacion[] listaOp = ListaOperaciones.getAllOperacionCuenta(cuentaAux.getIBAN());
+                Utilidades.showCuentaOperaciones(cuentaAux, listaOp);
+            }
         }
     }
     public static void showCuentaOperaciones(Cuenta cuenta, Operacion[] lista){
-        System.out.print("\nCuenta: " + cuenta.getIBAN());
-        for(int i=0; i <= lista.length; ++i){
-            if (lista[i].getTipo())
-            System.out.println(lista[i].getTipo() + "\t" + lista[i].getImporte());
+        System.out.print("\nCuenta: " + cuenta.getIBAN() + "\n");
+        for(int i=0; i < lista.length; ++i){
+            if (lista[i].getTipo().equals("Hipoteca")){
+                System.out.println(lista[i].getTipo() + "\t" + lista[i].getImporte() + "\t" + lista[i].getIbanReceptor());
+            }
+            else if (lista[i].getTipo().equals("Retirada")){
+                System.out.println(lista[i].getTipo() + "\t-" + lista[i].getImporte());
+            }
+            else if (lista[i].getTipo().equals("Deposito")){
+                System.out.println(lista[i].getTipo() + "\t+" + lista[i].getImporte());
+            }
+            else if (lista[i].getTipo().equals("Transferencia")){
+                if (lista[i].getIbanCuenta() == cuenta.getIBAN()) {
+                    System.out.println(lista[i].getTipo() + "\t-" + lista[i].getImporte() +
+                            " Cuenta Emisora: " + lista[i].getIbanCuenta() + " Cuenta Receptora: " + lista[i].getIbanReceptor());
+                }
+                else if (lista[i].getIbanReceptor() == cuenta.getIBAN()) {
+                    System.out.println(lista[i].getTipo() + "\t+" + lista[i].getImporte() +
+                            " Cuenta Emisora: " + lista[i].getIbanCuenta() + " Cuenta Receptora: " + lista[i].getIbanReceptor());
+                }
+            }
         }
     }
     }

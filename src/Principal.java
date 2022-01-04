@@ -127,7 +127,7 @@ public class Principal {
             else if (eleccion == 7) {
                 //funcion mi cuenta(No esta echa)
                 int posicion = Utilidades.logInCliente(ListaClientes, entrada);
-                Cliente clienteAux = ListaClientes.getListaCliente(posicion)
+                Cliente clienteAux = ListaClientes.getListaCliente(posicion);
                 int codigo = ListaClientes.getListaCodigo(posicion);
                 Cuenta[] listaAux = ListaCuentas.getMyCuentas(codigo);
                 Utilidades.showMyData(clienteAux, listaAux, ListaOperaciones);

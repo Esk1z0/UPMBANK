@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class CodigoDesechado {
     public static void main(String[] args) {
-        prueba4();
+        prueba6();
     }
     public static void prueba1(){
         Operacion primero = new Operacion();
@@ -122,6 +122,52 @@ public class CodigoDesechado {
     }
     public static void prueba5(){
         Prestamo.hipoteca();
+    }
+    public static void prueba6(){
+        String k;
+        int p;
+        boolean m;
+        Scanner entrada = new Scanner(System.in);
+
+        Cliente ListaClientes = new Cliente();
+        Cuenta ListaCuentas = new Cuenta();
+        Cuenta[] lista = new Cuenta[10];
+        ListaCuentas.createLista();
+        ListaClientes.createLista();
+        Operacion primero = new Operacion();
+        Operacion segundo = new Operacion();
+        Operacion tercero = new Operacion();
+        Operacion cuarto = new Operacion();
+        Operacion cinco = new Operacion();
+
+        ListaClientes.createNewCliente(1);
+        ListaClientes.createNewCliente(3);
+        ListaClientes.setListaCliente(1, "Juan", "Juan", "11", "11", "2000", "02768876K", 1100, "juan@upm.es");
+        ListaClientes.setListaCliente(3, "Juan", "Juan", "11", "11", "2000", "", 1300, "jua@upm.es");
+        p = ListaCuentas.findFreeSpace();
+        ListaCuentas.createNewCuenta(p);
+        ListaCuentas.setListaCuenta(p, 1100, "0000000000", 0.0);
+        p = ListaCuentas.findFreeSpace();
+        ListaCuentas.createNewCuenta(p);
+        ListaCuentas.setListaCuenta(p, 1300, "006565656565000", 100.0);
+        p = ListaCuentas.findFreeSpace();
+        ListaCuentas.createNewCuenta(p);
+        ListaCuentas.setListaCuenta(p, 1100, "11111156565000", 2000.0);
+
+
+        primero.setThisOperacion(true, "Cabeza", 0.0, "","");
+        segundo.setThisOperacion(true, "Retirada", 23.0, "0000000000","");
+        tercero.setThisOperacion(true, "Deposito", 10.0, "0000000000","");
+        cuarto.setThisOperacion(true, "Transferencia", 20.0, "11111156565000","0000000000");
+        cinco.setThisOperacion(true, "Deposito", 0.0, "0000000000","");
+        primero.setSize(5);
+        cuarto.setNextSiguinte(cinco);
+        tercero.setNextSiguinte(cuarto);
+        segundo.setNextSiguinte(tercero);
+        primero.setNextSiguinte(segundo);
+
+        Cuenta[] listacu = ListaCuentas.getMyCuentas(1100);
+        Utilidades.showMyData(ListaClientes.getListaCliente(1), listacu, primero);
     }
         /*
         int num = Utilidades.logInCliente(ListaClientes, entrada);

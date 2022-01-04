@@ -134,6 +134,12 @@ public class Operacion {
                     listaAux2 = listaAux;
 
                 }
+                else if (aux.getIbanReceptor() != null){
+                    if(aux.getIbanReceptor() == IbanCuenta){
+                        listaAux = Utilidades.appendLista(listaAux2, aux);
+                        listaAux2 = listaAux;
+                    }
+                }
             }
             if (aux.getSiguiente() != null) {
                 aux = aux.getSiguiente();
