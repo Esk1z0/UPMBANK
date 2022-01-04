@@ -121,7 +121,6 @@ public class Operacion {
         }
         return listaAux2;
     }
-
     public Operacion[] getAllOperacionCuenta(String IbanCuenta){
         int tamaño = this.getSize();
         Operacion aux = this;

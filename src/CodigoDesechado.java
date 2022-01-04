@@ -146,20 +146,22 @@ public class CodigoDesechado {
         ListaClientes.setListaCliente(3, "Juan", "Juan", "11", "11", "2000", "", 1300, "jua@upm.es");
         p = ListaCuentas.findFreeSpace();
         ListaCuentas.createNewCuenta(p);
-        ListaCuentas.setListaCuenta(p, 1100, "0000000000", 0.0);
+        ListaCuentas.setListaCuenta(p, 1100, "00000000000000000000", 0.0);
         p = ListaCuentas.findFreeSpace();
         ListaCuentas.createNewCuenta(p);
-        ListaCuentas.setListaCuenta(p, 1300, "006565656565000", 100.0);
+        ListaCuentas.setListaCuenta(p, 1300, "12345678901234567890", 100.0);
         p = ListaCuentas.findFreeSpace();
         ListaCuentas.createNewCuenta(p);
-        ListaCuentas.setListaCuenta(p, 1100, "11111156565000", 2000.0);
-
+        ListaCuentas.setListaCuenta(p, 1100, "2222222222222222222", 2000.0);
+        p = ListaCuentas.findFreeSpace();
+        ListaCuentas.createNewCuenta(p);
+        ListaCuentas.setListaCuenta(p, 1100, "11111111111111111111", 4000.0);
 
         primero.setThisOperacion(true, "Cabeza", 0.0, "","");
-        segundo.setThisOperacion(true, "Retirada", 23.0, "0000000000","");
-        tercero.setThisOperacion(true, "Deposito", 10.0, "0000000000","");
-        cuarto.setThisOperacion(true, "Transferencia", 20.0, "11111156565000","0000000000");
-        cinco.setThisOperacion(true, "Deposito", 0.0, "0000000000","");
+        segundo.setThisOperacion(true, "Transferencia", 23.0, "00000000000000000000","11111111111111111111");
+        tercero.setThisOperacion(true, "Transferencia", 10.0, "00000000000000000000","11111111111111111111");
+        cuarto.setThisOperacion(true, "Transferencia", 20.0, "12345678901234567890","00000000000000000000");
+        cinco.setThisOperacion(true, "Transferencia", 30.0, "12345678901234567890","11111111111111111111");
         primero.setSize(5);
         cuarto.setNextSiguinte(cinco);
         tercero.setNextSiguinte(cuarto);
@@ -168,6 +170,8 @@ public class CodigoDesechado {
 
         Cuenta[] listacu = ListaCuentas.getMyCuentas(1100);
         Utilidades.showMyData(ListaClientes.getListaCliente(1), listacu, primero);
+
+        TxtWriter.matrizTransferencia(lista, primero);
     }
         /*
         int num = Utilidades.logInCliente(ListaClientes, entrada);
