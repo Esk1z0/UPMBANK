@@ -424,7 +424,7 @@ public class Utilidades {
         }
     }
     public static void showCuentaOperaciones(Cuenta cuenta, Operacion[] lista){
-        System.out.print("\nCuenta: " + cuenta.getIBAN() + "\n");
+        System.out.print("\nCuenta: " + cuenta.getIBAN() + "\nDinero: " + cuenta.getDinero() + "\n");
         for(int i=0; i < lista.length; ++i){
             if (lista[i].getTipo().equals("Hipoteca")){
                 System.out.println(lista[i].getTipo() + "\t" + lista[i].getImporte() + "\t" + lista[i].getIbanReceptor());
