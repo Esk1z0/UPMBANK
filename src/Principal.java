@@ -17,10 +17,6 @@ public class Principal {
         String IBAN = "0", IBANReceptor = "0";
         int eleccion = 0;
         double dinero, interes = 0.03, cuota = 0;
-
-        long balance = 0, ultimoDeposito = 0, ultimaExtraccion = 0, ultimaTransferencia = 0;
-        long capitalPrestamo = 0, tiempoPrestamo = 0;
-        String nombre = "0", correo = "0", fechaNacimiento = "0",DNI = "0", DNIletra,ibanEmisor = "0", ibanreceptor = "0";
         Scanner entrada = new Scanner(System.in);
 
         System.out.println("Bienvenido, ¿qué desea?");
