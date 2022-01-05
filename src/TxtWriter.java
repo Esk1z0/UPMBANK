@@ -101,4 +101,25 @@ public class TxtWriter {
         }
         return cantidad;
     }
+
+    public static String sucursalesReader(int eleccion){
+        String Campus = "";
+        String texto;
+        String[] texto2;
+        try{
+            BufferedReader in = new BufferedReader(new FileReader("src\\Files\\Sucursales.txt"));
+            for(int i = 1; i <= 4; ++i){
+                texto = in.readLine();
+                texto2 = texto.split("=");
+                texto = texto2[1];
+                if(eleccion == i){
+                    Campus = texto;
+                }
+            }
+        }
+        catch(IOException ex){
+            System.out.println("Ups, ha habido un problema");
+        }
+        return Campus;
+    }
 }

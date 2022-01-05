@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class CodigoDesechado {
     public static void main(String[] args) {
-        prueba6();
+        prueba8();
     }
     public static void prueba1(){
         Operacion primero = new Operacion();
@@ -172,6 +172,10 @@ public class CodigoDesechado {
         Utilidades.showMyData(ListaClientes.getListaCliente(1), listacu, primero);
 
         TxtWriter.matrizTransferencia(lista, primero);
+    }
+    public static void prueba8(){
+        String palabros = TxtWriter.sucursalesReader(2);
+        System.out.println(palabros);
     }
         /*
         int num = Utilidades.logInCliente(ListaClientes, entrada);

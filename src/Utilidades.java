@@ -246,19 +246,9 @@ public class Utilidades {
 
         do {
             System.out.print("\n¿En qué Campus se encuentra?");
-            System.out.print("\n1) Campus Sur  2) Campus Montegancedo  3) Campus Madrid Ciudad  4) Campus Ciudad Universitaria\n: ");
+            System.out.print("\n1) Campus Sur  2) Ciudad Universitaria  3) Madrid Ciudad  4) Campus Montegancedo\n: ");
             eleccion = entrada.nextInt();
-            if (eleccion == 1) {
-                CS = "0201";
-            } else if (eleccion == 2) {
-                CS = "0204";
-            } else if (eleccion == 3) {
-                CS = "0203";
-            } else if (eleccion == 4) {
-                CS = "0202";
-            } else{
-                System.out.println("Esa opcion no está disponible");
-            }
+            CS = TxtWriter.sucursalesReader(eleccion);
         }while(eleccion < 1 || eleccion > 4);
         do{
             IBAN = createIBAN(CS);
