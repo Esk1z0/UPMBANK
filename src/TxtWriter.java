@@ -101,7 +101,6 @@ public class TxtWriter {
         }
         return cantidad;
     }
-
     public static String sucursalesReader(int eleccion){
         String Campus = "";
         String texto;
