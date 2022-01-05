@@ -39,6 +39,9 @@ public class Cuenta {
     public double getDinero() {
         return dinero;
     }
+    public Cuenta[] getLista() {
+        return lista;
+    }
     public void showCuenta(){
         System.out.println(this.toString()+"{IBAN: "+this.getIBAN()+" Dinero: "+this.getDinero()+" Codigo: "+this.getCodigo()+"}");
     }//Esta funcion muestra la informacion de la cuenta

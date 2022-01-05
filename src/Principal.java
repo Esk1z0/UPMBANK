@@ -137,5 +137,6 @@ public class Principal {
         }while(eleccion != 0);
         ListaClientes.showAllData();
         ListaCuentas.showAllData(1,200);
+        TxtWriter.matrizTransferencia(ListaCuentas.getLista(), ListaOperaciones);
     }
 }
