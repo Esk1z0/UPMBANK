@@ -4,7 +4,6 @@ public class Utilidades {
     private int mes;
     private int año;
 
-
     public Utilidades(int dia, int mes, int año) {
         this.dia=dia;
         this.mes=mes;
@@ -33,6 +32,10 @@ public class Utilidades {
         System.out.printf("%02d/%02d/%04d", dia, mes, año);
     }
 
+    //Lo de arriba pues me obligan por eso de tener que tener la clase fecha, pero en verdad no lo uso
+
+    enum TipoCuenta { AHORRO, REMUNERADA, CORRIENTE}
+
     //Metodos estaticos
     public static boolean esBisiesto(int año) {
         return (año % 4 == 0 && año % 100 != 0) || año % 400 == 0;
@@ -48,31 +51,34 @@ public class Utilidades {
         return fechaCorrecta;
     }
     public static boolean dni(String DNI){
-        boolean correcto;
-        String letra = Character.toString(DNI.charAt(8));
-        String letralista;
-        String[] letras = new String[] {"T","R","W","A","G","M","Y","F","P","D","X","B","N","J","Z","S","Q","V","H","L","C","K","E"};
-        int [] numdni = new int[8];
-        int resultado = 0;
-        int contador = 7;
-        for (int i=0; i<=7; ++i){
-            numdni[i] = Integer.parseInt(Character.toString(DNI.charAt(i)));
-        }
-        while(contador >= 0){
-            if (contador == 0){
-                resultado = resultado + (numdni[7-contador]);
+        boolean correcto = false;
+        try {
+            String letra = Character.toString(DNI.charAt(8));
+            String letralista;
+            String[] letras = new String[]{"T", "R", "W", "A", "G", "M", "Y", "F", "P", "D", "X", "B", "N", "J", "Z", "S", "Q", "V", "H", "L", "C", "K", "E"};
+            int[] numdni = new int[8];
+            int resultado = 0;
+            int contador = 7;
+            for (int i = 0; i <= 7; ++i) {
+                numdni[i] = Integer.parseInt(Character.toString(DNI.charAt(i)));
             }
-            else {
-                resultado = resultado + (numdni[7 - contador] * (int) Math.pow(10, contador));
+            while (contador >= 0) {
+                if (contador == 0) {
+                    resultado = resultado + (numdni[7 - contador]);
+                } else {
+                    resultado = resultado + (numdni[7 - contador] * (int) Math.pow(10, contador));
+                }
+                contador = contador - 1;
             }
-            contador = contador - 1;
+            resultado = resultado % 23;
+            letralista = letras[resultado];
+            if (letra.equals(letralista)) {
+                correcto = true;
+            } else {
+                correcto = false;
+            }
         }
-        resultado = resultado%23;
-        letralista = letras[resultado];
-        if(letra.equals(letralista)){
-            correcto = true;
-        }
-        else{
+        catch (StringIndexOutOfBoundsException ex){
             correcto = false;
         }
         return correcto;
@@ -173,9 +179,9 @@ public class Utilidades {
         while(!continua){
             System.out.println("Para crear una cuenta en UPMBank se le va a pedir una serie de datos");
             System.out.print("Nombre: ");
-            nombre = entrada.next();
+            nombre = entrada.nextLine();
             System.out.print("\nApellidos: ");
-            apellidos = entrada.next();
+            apellidos = entrada.nextLine();
             do {
                 System.out.print("\nDía de nacimiento (dd): ");
                 diaNac = entrada.nextInt();
@@ -232,17 +238,35 @@ public class Utilidades {
         }
         return posicion;
     }
+
+    public static TipoCuenta tipoDeCuenta(Scanner entrada){
+        int eleccion = 0;
+        TipoCuenta tipo = null;
+        do {
+            System.out.print("\n1) Ahorro    2) Remunerada   3) Corriente\nQué tipo de cuenta desea: ");
+            eleccion = entrada.nextInt();
+            switch(eleccion){
+                case 1:
+                    tipo = TipoCuenta.AHORRO;
+                    System.out.println("Cuenta AHORRO");
+                    break;
+                case 2:
+                    tipo = TipoCuenta.REMUNERADA;
+                    System.out.println("Cuenta REMUNERADA");
+                    break;
+                case 3:
+                    tipo = TipoCuenta.CORRIENTE;
+                    System.out.println("Cuenta CORRIENTE");
+                    break;
+            }
+        }while(eleccion < 1 && eleccion > 3);
+        return tipo;
+    }
+
     public static String askForDataCuenta(Cuenta lista, Scanner entrada){
         int eleccion = 0;
         String IBAN = "";
         String CS = "0";
-        do {
-            System.out.print("\n1) Ahorro    2) Remunerada   3) Corriente\nQué tipo de cuenta desea: ");
-            eleccion = entrada.nextInt();
-            if(eleccion != 3){
-                System.out.print("\nEsa opción no está disponible ahora mismo");
-            }
-        }while(eleccion != 3);
 
         do {
             System.out.print("\n¿En qué Campus se encuentra?");
@@ -301,7 +325,7 @@ public class Utilidades {
         String IBAN;
         boolean exists;
         int contador = 3;
-        for(int i=0; i<200; ++i){
+        for(int i=1; i<201; ++i){
             if(ListaCuentas.getListaCuenta(i) != null){
                 System.out.println(ListaCuentas.getListaIBAN(i));
             }

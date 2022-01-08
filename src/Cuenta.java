@@ -8,15 +8,17 @@ public class Cuenta {
     private int codigo; //El codigo que relaciona el cliente con sus cuentas
     private String IBAN; //El IBAN único de cada cuenta que lo relaciona con sus operaciones
     private double dinero; // El dinero que posee cada cuenta
+    private Utilidades.TipoCuenta tipo;
 
     //Aquí estan las funciones para cada cliente especifico
 
     //Aqui las funciones setter
 
-    public void setCuenta(int codigo, String IBAN, double dinero){
+    public void setCuenta(int codigo, String IBAN, double dinero, Utilidades.TipoCuenta Tipo){
         this.codigo = codigo;
         this.IBAN = IBAN;
         this.dinero = dinero;
+        this.tipo = Tipo;
     }
     public void setCodigo(int codigo) {
         this.codigo = codigo;
@@ -27,7 +29,9 @@ public class Cuenta {
     public void setDinero(double dinero) {
         this.dinero = dinero;
     }
-
+    public void setTipo(Utilidades.TipoCuenta tipo) {
+        this.tipo = tipo;
+    }
     //Las funciones getter para cada cliente especifico
 
     public int getCodigo() {
@@ -42,16 +46,19 @@ public class Cuenta {
     public Cuenta[] getLista() {
         return lista;
     }
+    public Utilidades.TipoCuenta getTipo() {
+        return tipo;
+    }
     public void showCuenta(){
-        System.out.println(this.toString()+"{IBAN: "+this.getIBAN()+" Dinero: "+this.getDinero()+" Codigo: "+this.getCodigo()+"}");
+        System.out.println(this.toString()+"{Tipo: "+ this.getTipo().toString()+" IBAN: "+this.getIBAN()+" Dinero: "+this.getDinero()+" Codigo: "+this.getCodigo()+"}");
     }//Esta funcion muestra la informacion de la cuenta
 
     //Aquí estan las funciones para cada cliente dentro de la lista con la posicion en la lista como parametro
 
     //Aqui las funciones setter para cada cliente de la lista
 
-    public void setListaCuenta(int posicion, int codigo, String IBAN, double dinero){
-        this.lista[posicion-1].setCuenta(codigo, IBAN, dinero);
+    public void setListaCuenta(int posicion, int codigo, String IBAN, double dinero, Utilidades.TipoCuenta tipo){
+        this.lista[posicion-1].setCuenta(codigo, IBAN, dinero, tipo);
     }
     public void setListaCodigo(int posicion, int codigo){
         this.lista[posicion-1].setCodigo(codigo);
@@ -61,6 +68,9 @@ public class Cuenta {
     }
     public void setListaDinero(int posicion, double dinero){
         this.lista[posicion-1].setDinero(dinero);
+    }
+    public void setListaTipo(int posicion, Utilidades.TipoCuenta Tipo){
+        this.lista[posicion-1].setTipo(Tipo);
     }
 
     //Aqui las funciones getter para cada cliente
@@ -76,6 +86,9 @@ public class Cuenta {
     }
     public double getListaDinero(int posicion){
         return this.lista[posicion-1].getDinero();
+    }
+    public Utilidades.TipoCuenta getListaTipo(int posicion){
+        return this.lista[posicion-1].getTipo();
     }
     public void showListaCuenta(int posicion){
         this.lista[posicion-1].showCuenta();

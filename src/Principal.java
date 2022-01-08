@@ -17,6 +17,7 @@ public class Principal {
         String IBAN = "0", IBANReceptor = "0";
         int eleccion = 0;
         double dinero, interes = 0.03, cuota = 0;
+        Utilidades.TipoCuenta tipo = null;
         Scanner entrada = new Scanner(System.in);
 
         System.out.println("Bienvenido, ¿qué desea?");
@@ -40,10 +41,11 @@ public class Principal {
                 //funcion crear cuenta
                 numCliente = Utilidades.logInCliente(ListaClientes, entrada);
                 if(numCliente != 0 && ListaCuentas.howManyCuentas(ListaClientes.getListaCodigo(numCliente)) < 10){
+                    tipo = Utilidades.tipoDeCuenta(entrada);
                     IBAN = Utilidades.askForDataCuenta(ListaCuentas, entrada);
                     int espacio = ListaCuentas.findFreeSpace();
                     ListaCuentas.createNewCuenta(espacio);
-                    ListaCuentas.setListaCuenta(espacio , ListaClientes.getListaCodigo(numCliente), IBAN, 0.0);
+                    ListaCuentas.setListaCuenta(espacio , ListaClientes.getListaCodigo(numCliente), IBAN, 0.0, tipo);
                     ListaCuentas.showListaCuenta(espacio);
                     System.out.println("Gracias por crear su nueva cuenta");
                 }
@@ -103,21 +105,26 @@ public class Principal {
             }
             else if (eleccion == 6) {
                 //funcion hipotecarse
-                numCliente = Utilidades.logInCliente(ListaClientes, entrada);
-                codigoCliente = ListaClientes.getListaCodigo(numCliente);
-                IBAN = Utilidades.logInClienteCuenta(ListaClientes, ListaCuentas, entrada, numCliente, codigoCliente);
-                if(IBAN != "") {
-                    dinero = Utilidades.askMoney(entrada);
-                    int meses = Utilidades.mesesHipoteca();
-                    String Meses = Integer.toString(meses);
-                    int newSize = ListaOperaciones.createNewOperacion(ListaOperaciones.getSize());
-                    ListaOperaciones.setSize(newSize);
-                    ListaOperaciones.setLastSiguiente(false, "Hipoteca", dinero, IBAN, Meses);
-                    int posicion = ListaCuentas.findPosicionIban(IBAN);
-                    ListaCuentas.setListaDinero(posicion, ListaCuentas.getListaDinero(posicion) + dinero);
-                    cuota = Utilidades.calculateCuota(meses, dinero, interes);
-                    Utilidades.showTablaAmortizacion(dinero, meses, cuota, interes);
-                    ListaCuentas.showListaCuenta(posicion);
+                try {
+                    numCliente = Utilidades.logInCliente(ListaClientes, entrada);
+                    codigoCliente = ListaClientes.getListaCodigo(numCliente);
+                    IBAN = Utilidades.logInClienteCuenta(ListaClientes, ListaCuentas, entrada, numCliente, codigoCliente);
+                    if (IBAN != "") {
+                        dinero = Utilidades.askMoney(entrada);
+                        int meses = Utilidades.mesesHipoteca();
+                        String Meses = Integer.toString(meses);
+                        int newSize = ListaOperaciones.createNewOperacion(ListaOperaciones.getSize());
+                        ListaOperaciones.setSize(newSize);
+                        ListaOperaciones.setLastSiguiente(false, "Hipoteca", dinero, IBAN, Meses);
+                        int posicion = ListaCuentas.findPosicionIban(IBAN);
+                        ListaCuentas.setListaDinero(posicion, ListaCuentas.getListaDinero(posicion) + dinero);
+                        cuota = Utilidades.calculateCuota(meses, dinero, interes);
+                        Utilidades.showTablaAmortizacion(dinero, meses, cuota, interes);
+                        ListaCuentas.showListaCuenta(posicion);
+                    }
+                }
+                catch(ArrayIndexOutOfBoundsException ex){
+                    System.out.println("Ups, parece que algo no ha ido como debería");
                 }
             }
             else if (eleccion == 7) {
@@ -137,6 +144,11 @@ public class Principal {
         }while(eleccion != 0);
         ListaClientes.showAllData();
         ListaCuentas.showAllData(1,200);
-        TxtWriter.matrizTransferencia(ListaCuentas.getLista(), ListaOperaciones);
+        try {
+            TxtWriter.matrizTransferencia(ListaCuentas.getLista(), ListaOperaciones);
+        }
+        catch(NullPointerException ex){
+            System.out.println("No hay transferencias para crear una matriz de transferencia");
+        }
     }
 }
